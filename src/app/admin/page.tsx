@@ -123,7 +123,7 @@ export default function AdminDashboard() {
     const phone = order.client_phone.replace(/[^0-9]/g, "");
     let text = "";
 
-    const formLink = `${window.location.origin}/form/${order.id}`;
+    const formLink = `${window.location.origin}/form?id=${order.id}`;
 
     switch (type) {
       case "cobrar":
