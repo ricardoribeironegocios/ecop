@@ -380,8 +380,7 @@ export default function BibliotecaCompletaPage() {
                       {/* Book spine simulation overlay */}
                       <div className="absolute top-0 left-0 bottom-0 w-2.5 bg-gradient-to-r from-black/30 via-white/10 to-transparent z-10" />
                       
-                      <div className="relative z-10 flex justify-between items-start">
-                        <span className="text-[7px] font-black uppercase tracking-widest text-amber-500/80 font-serif">Ricardo Ribeiro</span>
+                      <div className="relative z-10 flex justify-end items-start">
                         <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${
                           isSelected ? "bg-amber-500 border-amber-500 text-slate-950" : "bg-black/40 border-white/20 text-white"
                         }`}>

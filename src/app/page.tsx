@@ -43,12 +43,12 @@ export default function Home() {
     },
     {
       id: "crs-2",
-      title: "Universidade Profética Internacional",
+      title: "Cursos Online - Universidade Profética Internacional",
       tagline: "Formação teológica avançada para líderes e ministros apostólicos.",
-      price: "12x R$ 30,72",
+      price: "",
       description: "Aprofunde-se na história bíblica, escatologia, governo da igreja e fluxo profético avançado. Ideal para quem busca mentoria de alto nível e liderança.",
-      checkout_url: "https://chk.eduzz.com/797ZDYPA0E",
-      details_url: "/universidade-profetica",
+      checkout_url: "/cursos-online",
+      details_url: "/cursos-online",
       is_popular: false
     },
     {
@@ -102,10 +102,10 @@ export default function Home() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 lg:pt-28 pb-20 lg:pb-28 z-10 w-full">
           {/* Text and CTAs */}
-          <div className="max-w-2xl xl:max-w-3xl space-y-6 text-left flex flex-col items-start relative z-10">
+          <div className="max-w-2xl xl:max-w-3xl space-y-6 text-left flex flex-col items-start relative z-10 pl-2 sm:pl-6 lg:pl-12">
             <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-500 rounded-full text-xs font-bold uppercase tracking-wider animate-pulse">
               <Sparkles className="w-4 h-4" />
-              <span>Escola de Capacitação Profética</span>
+              <span>Conhecimento Profético</span>
             </span>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white drop-shadow-2xl tracking-tight leading-tight">
@@ -142,7 +142,7 @@ export default function Home() {
             {/* Blending overlay to smooth the light/white fade into the dark background - restricted to left 55% */}
             <div className="absolute left-0 top-0 bottom-0 w-[55%] bg-gradient-to-r from-slate-950 via-slate-950/85 to-transparent z-10" />
             <img
-              src="/hero-portrait-new.png"
+              src="/hero-portrait-v7.png"
               alt="Apóstolo Ricardo Ribeiro"
               className="w-full h-full object-cover object-right-bottom drop-shadow-2xl opacity-100"
             />
@@ -334,6 +334,22 @@ export default function Home() {
                     <p className="text-xs text-slate-400 font-bold leading-normal">{course.tagline}</p>
                   </div>
                   <p className="text-xs text-slate-500 leading-relaxed font-medium">{course.description}</p>
+                  {course.id === "crs-2" && (
+                    <ul className="space-y-2 pt-3 text-[11px] text-slate-650 font-bold border-t border-slate-100/60 mt-3">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-emerald-500 shrink-0" />
+                        <span>Cursos Essenciais Individuais</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-emerald-500 shrink-0" />
+                        <span>Cursos Avançados</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-emerald-500 shrink-0" />
+                        <span>Pacote VIP</span>
+                      </li>
+                    </ul>
+                  )}
                 </div>
 
                 <div className="pt-6 border-t border-slate-100 mt-6 space-y-4">
@@ -345,26 +361,28 @@ export default function Home() {
                   )}
 
                   <div className="flex flex-col gap-2">
-                    <a
-                      href={course.details_url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-full py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider text-slate-700 hover:text-slate-900 border border-slate-200/80 hover:border-slate-350 bg-slate-50 hover:bg-slate-100 transition-all text-center flex items-center justify-center gap-1 cursor-pointer"
-                    >
-                      <span>Saiba Mais</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
-                    </a>
+                    {course.id !== "crs-2" && (
+                      <a
+                        href={course.details_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-full py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider text-slate-700 hover:text-slate-900 border border-slate-200/80 hover:border-slate-350 bg-slate-50 hover:bg-slate-100 transition-all text-center flex items-center justify-center gap-1 cursor-pointer"
+                      >
+                        <span>Saiba Mais</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
+                      </a>
+                    )}
 
                     <a
                       href={course.checkout_url}
-                      target="_blank"
-                      rel="noreferrer"
+                      target={course.checkout_url.startsWith("http") ? "_blank" : undefined}
+                      rel={course.checkout_url.startsWith("http") ? "noreferrer" : undefined}
                       className={`w-full py-3 rounded-xl text-xs font-black uppercase tracking-wider text-center flex items-center justify-center gap-1.5 transition-colors border-0 cursor-pointer ${course.is_popular
-                          ? "bg-brand-gradient text-white"
-                          : "bg-slate-900 hover:bg-slate-800 text-white shadow-sm"
+                        ? "bg-brand-gradient text-white"
+                        : "bg-slate-900 hover:bg-slate-800 text-white shadow-sm"
                         }`}
                     >
-                      <span>Matricular-se</span>
+                      <span>{course.id === "crs-2" ? "Ver Cursos Disponíveis" : "Matricular-se"}</span>
                       <ArrowUpRight className="w-4 h-4" />
                     </a>
                   </div>
@@ -420,8 +438,7 @@ export default function Home() {
                   {(() => {
                     const cover = book.cover_url || (book as any).gradient || "";
                     return cover.startsWith("from-") ? (
-                      <div className={`w-full h-full bg-gradient-to-br ${cover} p-4 flex flex-col justify-between`}>
-                        <span className="text-[7px] font-black uppercase tracking-widest text-amber-500/80">Ricardo Ribeiro</span>
+                      <div className={`w-full h-full bg-gradient-to-br ${cover} p-4 flex flex-col justify-end`}>
                         <div className="space-y-1 text-left">
                           <h4 className="text-sm font-black text-white leading-tight font-serif uppercase tracking-tight">{book.title}</h4>
                           <p className="text-[7px] text-slate-400 uppercase font-black tracking-widest">Livro Digital</p>
@@ -469,7 +486,7 @@ export default function Home() {
           <div className="pt-4">
             <Link
               href="/biblioteca"
-              className="inline-flex items-center gap-1.5 px-5 py-3 border border-slate-200 hover:bg-slate-50 text-slate-805 font-black text-xs rounded-xl uppercase tracking-wider cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-black text-xs rounded-xl uppercase tracking-wider cursor-pointer shadow-md hover:scale-[1.02] active:scale-98 transition-all border-0"
             >
               <span>Ver Biblioteca Completa</span>
               <ArrowRight className="w-4 h-4 text-amber-500 animate-pulse" />
@@ -487,96 +504,20 @@ export default function Home() {
 
           <div className="space-y-4">
             <span className="text-xs font-black uppercase text-amber-600 tracking-wider">Direcionamento Pessoal</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight leading-none">Solicite Seu Mapa Profético</h2>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-955 tracking-tight leading-none">Solicite Seu Mapa Profético</h2>
             <p className="text-xs text-slate-500 font-bold max-w-md mx-auto">Um diagnóstico profundo de chamado, revelação de bloqueios e atalho espiritual desenhado manualmente.</p>
             <div className="pt-2">
               <Link
                 href="/entenda-o-mapa"
-                className="inline-flex items-center gap-1.5 px-4.5 py-2 border border-slate-200 hover:bg-slate-100/50 hover:border-slate-350 text-slate-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3.5 bg-slate-950 hover:bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-wider shadow-md hover:scale-[1.02] active:scale-98 transition-all border-0"
               >
                 <span>Conhecer Melhor o Mapa</span>
-                <ArrowRight className="w-3.5 h-3.5 text-amber-600" />
+                <ArrowRight className="w-4 h-4 text-amber-500" />
               </Link>
             </div>
-            {/* Standard Plan */}
-            <div className="bg-slate-50/50 border border-slate-200/60 rounded-3xl p-6 sm:p-8 flex flex-col justify-between text-left hover:border-slate-350 hover:bg-white transition-all">
-              <div className="space-y-6">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-lg font-black text-slate-950">Mapa Standard</h3>
-                    <p className="text-xs text-slate-450 font-bold mt-0.5">Diagnóstico Fundamental</p>
-                  </div>
-                  <span className="text-xs font-black text-amber-600 bg-amber-500/10 px-2.5 py-1 rounded-lg">Essencial</span>
-                </div>
+          </div>
 
-                <div className="py-1">
-                  <span className="text-3xl font-black text-slate-950 font-mono">R$ 77</span>
-                  <span className="text-[10px] text-slate-450 font-bold ml-1">/ Super Preço</span>
-                </div>
-
-                <ul className="space-y-2 text-[11px] text-slate-650 font-semibold border-t border-slate-100 pt-4">
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>SIGNIFICADO DO NOME</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>SIGNIFICADO DOS SOBRENOMES</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>INTERPRETAÇÃO PROFÉTICA DOS NOMES</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>NOME ESCRITO EM HEBRAICO</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>DATA DE NASCIMENTO BÍBLICA</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>TEXTO DA PARASHÁ</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
-                    <span className="text-slate-500 font-medium">NOME DA TRIBO <span className="font-bold text-slate-700">SEM ESTUDO</span></span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
-                    <span className="text-slate-500 font-medium">NOME DO MÊS BÍBLICO <span className="font-bold text-slate-700">SEM ESTUDO</span></span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
-                    <span className="text-slate-500 font-medium"><span className="font-bold text-slate-700">SEM TABELAS</span> DE ESTUDO EM ANEXO</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
-                    <span className="text-slate-500 font-medium"><span className="font-bold text-slate-700">SEM ESTUDO</span> SOBRE CADA LETRA BÍBLICA</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>CERCA DE 4 PÁGINAS</span>
-                  </li>
-                  <li className="flex items-center gap-2 text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md w-fit">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>ENTREGA EM 2 HORAS!!!!</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="pt-8 mt-8 border-t border-slate-200/60 space-y-4">
-                <button
-                  onClick={() => handleWhatsappCta("Standard")}
-                  className="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer transition-colors border-0"
-                >
-                  <MessageSquare className="w-4 h-4 fill-white stroke-none" />
-                  <span>Solicitar no WhatsApp</span>
-                </button>
-              </div>
-            </div>
-
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
             {/* Premium Plan */}
             <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between text-left hover:border-amber-500/40 relative shadow-2xl">
               <span className="absolute -top-3 left-6 px-3 py-1 bg-brand-gradient text-white font-black uppercase tracking-wider text-[9px] rounded-full">
@@ -594,7 +535,7 @@ export default function Home() {
 
                 <div className="py-1">
                   <span className="text-3xl font-black text-white font-mono">R$ 297</span>
-                  <span className="text-[10px] text-slate-400 font-bold ml-1">/ Preço Promocional</span>
+                  <span className="text-[10px] text-slate-440 font-bold ml-1">/ Preço Promocional</span>
                 </div>
 
                 <ul className="space-y-2 text-[11px] text-slate-300 font-semibold border-t border-slate-800 pt-4">
@@ -660,6 +601,88 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Standard Plan */}
+            <div className="bg-slate-50/50 border border-slate-200/60 rounded-3xl p-6 sm:p-8 flex flex-col justify-between text-left hover:border-slate-350 hover:bg-white transition-all">
+              <div className="space-y-6">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-black text-slate-950">Mapa Standard</h3>
+                    <p className="text-xs text-slate-450 font-bold mt-0.5">Diagnóstico Fundamental</p>
+                  </div>
+                  <span className="text-xs font-black text-amber-600 bg-amber-500/10 px-2.5 py-1 rounded-lg">Essencial</span>
+                </div>
+
+                <div className="py-1">
+                  <span className="text-3xl font-black text-slate-955 font-mono">R$ 77</span>
+                  <span className="text-[10px] text-slate-455 font-bold ml-1">/ Super Preço</span>
+                </div>
+
+                <ul className="space-y-2 text-[11px] text-slate-650 font-semibold border-t border-slate-100 pt-4">
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>SIGNIFICADO DO NOME</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>SIGNIFICADO DOS SOBRENOMES</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>INTERPRETAÇÃO PROFÉTICA DOS NOMES</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>NOME ESCRITO EM HEBRAICO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>DATA DE NASCIMENTO BÍBLICA</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>TEXTO DA PARASHÁ</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <X className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="line-through">NOME DA TRIBO E ESTUDO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <X className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="line-through">NOME DO MÊS BÍBLICO E ESTUDO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <X className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="line-through">TABELAS DE ESTUDO EM ANEXO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <X className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="line-through">ESTUDO SOBRE CADA LETRA BÍBLICA</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>CERCA DE 4 PÁGINAS</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <X className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="line-through">MAIS DE 15 PÁGINAS</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md w-fit">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>ENTREGA EM 2 HORAS!!!!</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="pt-8 mt-8 border-t border-slate-200/60 space-y-4">
+                <button
+                  onClick={() => handleWhatsappCta("Standard")}
+                  className="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer transition-colors border-0"
+                >
+                  <MessageSquare className="w-4 h-4 fill-white stroke-none" />
+                  <span>Solicitar no WhatsApp</span>
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Core Info Flow Banner */}
@@ -861,8 +884,7 @@ export default function Home() {
                 {(() => {
                   const cover = selectedBook.cover_url || (selectedBook as any).gradient || "";
                   return cover.startsWith("from-") ? (
-                    <div className={`w-full h-full bg-gradient-to-br ${cover} p-2 flex flex-col justify-between`}>
-                      <span className="text-[5px] font-black uppercase tracking-wider text-amber-500">R. Ribeiro</span>
+                    <div className={`w-full h-full bg-gradient-to-br ${cover} p-2 flex flex-col justify-end`}>
                       <span className="text-[9px] font-black text-white font-serif uppercase tracking-tight leading-tight">{selectedBook.title}</span>
                     </div>
                   ) : (

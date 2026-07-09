@@ -15,7 +15,8 @@ import {
   Eye, 
   EyeOff, 
   LogOut, 
-  Lock 
+  Lock,
+  BookOpen
 } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -60,6 +61,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const menuItems = [
     { label: "Painel Hoje", href: "/admin", icon: <LayoutDashboard className="w-5 h-5" /> },
     { label: "Formulários do Mapa", href: "/admin/forms", icon: <FileText className="w-5 h-5" /> },
+    { label: "Produtos da Vitrine", href: "/admin/products", icon: <BookOpen className="w-5 h-5" /> },
     { label: "Configurações", href: "/admin/settings", icon: <Settings className="w-5 h-5" /> }
   ];
 

@@ -20,7 +20,7 @@ export default function Header() {
 
   const navLinks = [
     { label: "Início", href: "/#home", icon: <Sparkles className="w-3.5 h-3.5" /> },
-    { label: "ECOP", href: "/#cursos", icon: <BookOpen className="w-3.5 h-3.5" /> },
+    { label: "Cursos Online", href: "/cursos-online", icon: <BookOpen className="w-3.5 h-3.5" /> },
     { label: "Caravana", href: "/caravana-israel", icon: <Compass className="w-3.5 h-3.5" /> },
     { label: "Biblioteca", href: "/#biblioteca", icon: <Compass className="w-3.5 h-3.5" /> },
     { label: "Agenda", href: "/#eventos", icon: <Calendar className="w-3.5 h-3.5" /> }

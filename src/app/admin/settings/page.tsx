@@ -354,8 +354,7 @@ export default function AdminSettingsPage() {
                         {(() => {
                           const cover = book.cover_url || (book as any).gradient || "";
                           return cover.startsWith("from-") ? (
-                            <div className={`w-full h-full bg-gradient-to-br ${cover} p-1.5 flex flex-col justify-between`}>
-                              <span className="text-[3px] font-black uppercase text-amber-500">R. Ribeiro</span>
+                            <div className={`w-full h-full bg-gradient-to-br ${cover} p-1.5 flex flex-col justify-end`}>
                               <span className="text-[6px] font-black text-white font-serif uppercase tracking-tight block truncate">{book.title}</span>
                             </div>
                           ) : (
@@ -480,9 +479,7 @@ export default function AdminSettingsPage() {
                       {(() => {
                         const cover = bookForm.cover_url || "";
                         return cover.startsWith("from-") ? (
-                          <div className={`w-full h-full bg-gradient-to-br ${cover} p-1 flex flex-col justify-between`}>
-                            <span className="text-[3px] font-black uppercase text-amber-500">R. Ribeiro</span>
-                          </div>
+                          <div className={`w-full h-full bg-gradient-to-br ${cover}`} />
                         ) : (
                           <img src={cover} className="w-full h-full object-cover" alt="Preview da capa" />
                         );

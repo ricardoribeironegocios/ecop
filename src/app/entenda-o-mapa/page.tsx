@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 import { 
@@ -14,7 +14,10 @@ import {
   Users, 
   Target, 
   MapPin, 
-  Lock
+  Lock,
+  ChevronLeft,
+  ChevronRight,
+  X
 } from "lucide-react";
 
 export default function EntendaOMapaPage() {
@@ -30,26 +33,37 @@ export default function EntendaOMapaPage() {
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
   };
 
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
+
   const testimonials = [
     {
-      name: "Julio Cezar de Jesus",
-      role: "Empresário & Líder de Ministério",
-      image: "/testimonial-julio.png",
-      text: "Minha vida ministerial mudou completamente após receber o Mapa Profético. Eu sentia que meu chamado estava travado e não compreendia certas resistências. A análise revelou bloqueios específicos e me deu uma direção clara sobre minha vocação. Hoje atuo com muito mais segurança e alinhamento espiritual.",
+      name: "Érica Soares",
+      role: "Membro de Ministério",
+      text: "Nunca pensei que um documento pudesse ser literalmente uma bússola para minha vida",
     },
     {
-      name: "Avelina",
-      role: "Intercessora",
-      image: "/testimonial-avelina.png",
-      text: "Tive revelações profundas sobre cativeiros familiares e padrões que se repetiam na minha linhagem. O direcionamento do Mapa me ajudou a entrar em um tempo de libertação e posicionamento espiritual que há anos eu buscava. É uma ferramenta de cura indispensável.",
+      name: "Malcon Luiz",
+      role: "Membro de Célula",
+      text: "Agora entendo porquê sempre tive dificuldade de me relacionar com outras pessoas",
     },
     {
-      name: "Pr. Thiago",
-      role: "Pastor Auxiliar",
-      image: "/testimonial-thiago.png",
-      text: "Como pastor, o Mapa me deu ferramentas cirúrgicas para entender minhas inclinações ministeriais e focar onde realmente dou frutos. Ele reduz a fricção de tentar caminhos aleatórios. Recomendo a todos os membros da nossa liderança que buscam maturidade no seu chamado.",
+      name: "Agno Mauro",
+      role: "Coach Comportamental",
+      text: "Sou coach comportamental, e uma das minhas exigências para novos clientes é que estudem seus Mapas",
+    },
+    {
+      name: "Maria Delgado",
+      role: "Médica Cardiologista",
+      text: "Adquiri um Mapa para toda a minha família. Sentamos e conversamos sobre nossa relação, e mudamos muito após esta decisão.",
     }
   ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [testimonials.length]);
 
   const faqs = [
     {
@@ -257,36 +271,60 @@ export default function EntendaOMapaPage() {
 
       {/* Testimonials Section */}
       <section className="py-24 bg-white border-b border-slate-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-3">
             <span className="text-xs font-black uppercase text-amber-600 tracking-wider">Histórias de Alinhamento</span>
-            <h2 className="text-3xl font-extrabold text-slate-950 tracking-tight leading-none">Vidas que Encontraram Direção</h2>
+            <h2 className="text-3xl font-extrabold text-slate-955 tracking-tight leading-none">Vidas que Encontraram Direção</h2>
             <p className="text-xs text-slate-500 font-bold max-w-md mx-auto">Veja o depoimento de pessoas que passaram pelo processo do Mapa Profético.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t, idx) => (
-              <div key={idx} className="bg-slate-50 border border-slate-200/40 rounded-3xl p-6 sm:p-7 text-left flex flex-col justify-between hover:border-slate-350 transition-colors shadow-sm relative">
-                <div className="space-y-4">
-                  <p className="text-[11px] text-slate-700 italic font-semibold leading-relaxed">
-                    "{t.text}"
-                  </p>
-                </div>
-                <div className="flex items-center gap-3 pt-6 mt-6 border-t border-slate-200/50">
-                  <div className="w-11 h-11 rounded-full overflow-hidden shrink-0 border border-slate-200 relative">
-                    <img 
-                      src={t.image} 
-                      alt={t.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <h4 className="text-[11px] font-black text-slate-900 truncate block">{t.name}</h4>
-                    <span className="text-[9px] text-slate-500 font-bold block truncate">{t.role}</span>
-                  </div>
-                </div>
+          {/* Carousel Card Wrapper */}
+          <div className="relative bg-slate-950 border border-slate-850 rounded-[2.5rem] p-8 sm:p-12 text-center shadow-xl shadow-amber-500/5 min-h-[220px] flex flex-col justify-between transition-all text-white">
+            <div className="absolute top-6 left-6 text-amber-500 font-serif text-5xl opacity-40 select-none">“</div>
+            <div className="absolute bottom-6 right-6 text-amber-500 font-serif text-5xl opacity-40 select-none">”</div>
+
+            <div className="space-y-6 relative z-10 py-4">
+              <p className="text-sm sm:text-base text-slate-200 italic font-semibold leading-relaxed max-w-xl mx-auto">
+                "{testimonials[currentTestimonialIndex].text}"
+              </p>
+              <div>
+                <h4 className="text-xs sm:text-sm font-black text-white uppercase tracking-wide">
+                  {testimonials[currentTestimonialIndex].name}
+                </h4>
+                <span className="text-[10px] text-amber-500 font-bold uppercase tracking-wider mt-0.5 block">
+                  {testimonials[currentTestimonialIndex].role}
+                </span>
               </div>
-            ))}
+            </div>
+
+            {/* Pagination controls */}
+            <div className="flex justify-between items-center mt-6 pt-4 border-t border-slate-900 z-10">
+              <button
+                onClick={() => setCurrentTestimonialIndex(prev => (prev - 1 + testimonials.length) % testimonials.length)}
+                className="p-2 border-0 bg-transparent text-slate-500 hover:text-white cursor-pointer transition-colors"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+
+              <div className="flex gap-2">
+                {testimonials.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentTestimonialIndex(idx)}
+                    className={`w-2.5 h-2.5 rounded-full border-0 cursor-pointer transition-all ${
+                      currentTestimonialIndex === idx ? "bg-amber-500 w-6" : "bg-slate-800 hover:bg-slate-700"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={() => setCurrentTestimonialIndex(prev => (prev + 1) % testimonials.length)}
+                className="p-2 border-0 bg-transparent text-slate-500 hover:text-white cursor-pointer transition-colors"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -303,87 +341,6 @@ export default function EntendaOMapaPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-
-            {/* Standard */}
-            <div className="bg-white border border-slate-200/60 rounded-3xl p-6 sm:p-8 flex flex-col justify-between text-left hover:border-slate-350 transition-all shadow-sm">
-              <div className="space-y-6">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-lg font-black text-slate-950">Mapa Standard</h3>
-                    <p className="text-xs text-slate-450 font-bold mt-0.5">Diagnóstico Fundamental</p>
-                  </div>
-                  <span className="text-[10px] font-black text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md uppercase tracking-wider">
-                    Essencial
-                  </span>
-                </div>
-
-                <div className="py-1">
-                  <span className="text-3xl font-black text-slate-950 font-mono">R$ 77</span>
-                  <span className="text-[10px] text-slate-450 font-bold ml-1">/ Super Preço</span>
-                </div>
-
-                <ul className="space-y-2 text-[11px] text-slate-650 font-semibold border-t border-slate-100 pt-4">
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>SIGNIFICADO DO NOME</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>SIGNIFICADO DOS SOBRENOMES</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>INTERPRETAÇÃO PROFÉTICA DOS NOMES</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>NOME ESCRITO EM HEBRAICO</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>DATA DE NASCIMENTO BÍBLICA</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>TEXTO DA PARASHÁ</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
-                    <span className="text-slate-500 font-medium">NOME DA TRIBO <span className="font-bold text-slate-700">SEM ESTUDO</span></span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
-                    <span className="text-slate-500 font-medium">NOME DO MÊS BÍBLICO <span className="font-bold text-slate-700">SEM ESTUDO</span></span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
-                    <span className="text-slate-500 font-medium"><span className="font-bold text-slate-700">SEM TABELAS</span> DE ESTUDO EM ANEXO</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
-                    <span className="text-slate-500 font-medium"><span className="font-bold text-slate-700">SEM ESTUDO</span> SOBRE CADA LETRA BÍBLICA</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>CERCA DE 4 PÁGINAS</span>
-                  </li>
-                  <li className="flex items-center gap-2 text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md w-fit">
-                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>ENTREGA EM 2 HORAS!!!!</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="pt-8">
-                <button
-                  onClick={() => handleWhatsappCta("Standard")}
-                  className="w-full py-4.5 bg-slate-950 hover:bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-colors border-0"
-                >
-                  <MessageSquare className="w-4 h-4 fill-white stroke-none" />
-                  <span>Garantir Mapa Standard</span>
-                </button>
-              </div>
-            </div>
 
             {/* Premium */}
             <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between text-left hover:border-amber-500/40 relative shadow-2xl">
@@ -466,6 +423,91 @@ export default function EntendaOMapaPage() {
                 >
                   <MessageSquare className="w-4 h-4 fill-white stroke-none" />
                   <span>Garantir Mapa Premium</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Standard */}
+            <div className="bg-white border border-slate-200/60 rounded-3xl p-6 sm:p-8 flex flex-col justify-between text-left hover:border-slate-350 transition-all shadow-sm">
+              <div className="space-y-6">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-black text-slate-955">Mapa Standard</h3>
+                    <p className="text-xs text-slate-450 font-bold mt-0.5">Diagnóstico Fundamental</p>
+                  </div>
+                  <span className="text-[10px] font-black text-amber-600 bg-amber-500/10 px-2.5 py-1 rounded-lg uppercase tracking-wider">
+                    Essencial
+                  </span>
+                </div>
+
+                <div className="py-1">
+                  <span className="text-3xl font-black text-slate-955 font-mono">R$ 77</span>
+                  <span className="text-[10px] text-slate-455 font-bold ml-1">/ Super Preço</span>
+                </div>
+
+                <ul className="space-y-2 text-[11px] text-slate-650 font-semibold border-t border-slate-100 pt-4">
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>SIGNIFICADO DO NOME</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>SIGNIFICADO DOS SOBRENOMES</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>INTERPRETAÇÃO PROFÉTICA DOS NOMES</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>NOME ESCRITO EM HEBRAICO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>DATA DE NASCIMENTO BÍBLICA</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>TEXTO DA PARASHÁ</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <X className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="line-through">NOME DA TRIBO E ESTUDO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <X className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="line-through">NOME DO MÊS BÍBLICO E ESTUDO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <X className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="line-through">TABELAS DE ESTUDO EM ANEXO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <X className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="line-through">ESTUDO SOBRE CADA LETRA BÍBLICA</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>CERCA DE 4 PÁGINAS</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <X className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="line-through">MAIS DE 15 PÁGINAS</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md w-fit">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>ENTREGA EM 2 HORAS!!!!</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="pt-8">
+                <button
+                  onClick={() => handleWhatsappCta("Standard")}
+                  className="w-full py-4.5 bg-slate-950 hover:bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-colors border-0"
+                >
+                  <MessageSquare className="w-4 h-4 fill-white stroke-none" />
+                  <span>Garantir Mapa Standard</span>
                 </button>
               </div>
             </div>

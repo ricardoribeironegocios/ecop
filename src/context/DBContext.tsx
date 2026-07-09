@@ -47,7 +47,6 @@ export interface GlobalSettings {
   youtube_video_url: string;
   presentation_text: string;
 }
-
 export interface BookItem {
   id: string;
   title: string;
@@ -56,12 +55,25 @@ export interface BookItem {
   desc: string;
 }
 
+export interface ProductItem {
+  id: string;
+  title: string;
+  lessons: number;
+  checkout_url: string;
+  image_url?: string;
+  price_cash: number;
+  price_installments: string;
+  type: "individual" | "package";
+  description?: string;
+}
+
 interface DBContextType {
   orders: Order[];
   formTemplates: FormTemplate[];
   events: EventItem[];
   settings: GlobalSettings;
   books: BookItem[];
+  products: ProductItem[];
   createOrder: (order: Omit<Order, "id" | "created_at" | "due_date">) => Order;
   updateOrder: (id: string, updates: Partial<Order>) => void;
   deleteOrder: (id: string) => void;
@@ -73,6 +85,9 @@ interface DBContextType {
   updateBook: (id: string, updates: Partial<BookItem>) => void;
   createBook: (book: Omit<BookItem, "id">) => void;
   deleteBook: (id: string) => void;
+  createProduct: (product: Omit<ProductItem, "id">) => void;
+  updateProduct: (id: string, updates: Partial<ProductItem>) => void;
+  deleteProduct: (id: string) => void;
   isLoading: boolean;
 }
 
@@ -151,12 +166,82 @@ const defaultBooks: BookItem[] = [
   { id: "bk-12", title: "Manual de Atos Proféticos", price: "R$ 49,00", cover_url: "from-fuchsia-950 via-purple-900 to-slate-950", desc: "Atos Proféticos são orações teatralizadas, direcionadas por Deus, que quando realizadas podem fazer o céu tremer e o sobrenatural acontecer. Manual completo." }
 ];
 
+const defaultProducts: ProductItem[] = [
+  {
+    id: "prod-1",
+    title: "Curso Tribunal Celestial",
+    lessons: 20,
+    checkout_url: "https://chk.eduzz.com/6W4GEB5O0Z",
+    image_url: "",
+    price_cash: 97,
+    price_installments: "12x R$ 10,03",
+    type: "individual",
+    description: "Aprenda a operar no âmbito legal dos céus e a revogar decretos contrários ao seu destino."
+  },
+  {
+    id: "prod-2",
+    title: "Curso Oração em Línguas",
+    lessons: 16,
+    checkout_url: "https://chk.eduzz.com/KW8Z6QD201",
+    image_url: "",
+    price_cash: 97,
+    price_installments: "12x R$ 10,03",
+    type: "individual",
+    description: "Mergulhe no mistério do falar em línguas e ative uma comunicação de nível profético com o Pai."
+  },
+  {
+    id: "prod-3",
+    title: "Curso de Ministério dos Anjos",
+    lessons: 8,
+    checkout_url: "https://chk.eduzz.com/89AX7G180D",
+    image_url: "",
+    price_cash: 97,
+    price_installments: "12x R$ 10,03",
+    type: "individual",
+    description: "Entenda o serviço e a ativação dos seres celestiais enviados para cooperar com os herdeiros da salvação."
+  },
+  {
+    id: "prod-4",
+    title: "Formação Cativeiros Espirituais",
+    lessons: 12,
+    checkout_url: "https://wa.me/5521981116787?text=Olá! Quero me inscrever na Formação Cativeiros Espirituais.",
+    image_url: "",
+    price_cash: 297,
+    price_installments: "12x R$ 30,72",
+    type: "individual",
+    description: "Identifique e desmonte as legalidades que prendem famílias, finanças e ministérios em prisões espirituais."
+  },
+  {
+    id: "prod-5",
+    title: "Curso Avançado de Libertação Individual",
+    lessons: 26,
+    checkout_url: "https://wa.me/5521981116787?text=Olá! Quero me inscrever no Curso Avançado de Libertação Individual.",
+    image_url: "",
+    price_cash: 297,
+    price_installments: "12x R$ 30,72",
+    type: "individual",
+    description: "Um guia prático e teológico passo a passo para libertação e cura interior profunda."
+  },
+  {
+    id: "prod-6",
+    title: "Universidade Profética VIP",
+    lessons: 150,
+    checkout_url: "https://chk.eduzz.com/797ZDYPA0E",
+    image_url: "",
+    price_cash: 297,
+    price_installments: "12x R$ 30,72",
+    type: "package",
+    description: "O pacote completo e vitalício com acesso a todos os 12 cursos proféticos e lives exclusivas."
+  }
+];
+
 export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [formTemplates, setFormTemplates] = useState<FormTemplate[]>(defaultFormTemplates);
   const [events, setEvents] = useState<EventItem[]>(defaultEvents);
   const [settings, setSettings] = useState<GlobalSettings>(defaultSettings);
   const [books, setBooks] = useState<BookItem[]>([]);
+  const [products, setProducts] = useState<ProductItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Initialize DB from localStorage (single source of truth fallback) and load from Supabase
@@ -207,6 +292,13 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
           }));
           setFormTemplates(formatted);
           localStorage.setItem("mr_templates", JSON.stringify(formatted));
+        }
+
+        // Load Products
+        const { data: pD } = await supabase.from("mr_products").select("*").order("title", { ascending: true });
+        if (pD && pD.length > 0) {
+          setProducts(pD);
+          localStorage.setItem("mr_products", JSON.stringify(pD));
         }
       } catch (err) {
         console.warn("Supabase fetch failed, falling back to local storage.", err);
@@ -307,6 +399,19 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
       } else {
         setBooks(defaultBooks);
         localStorage.setItem("mr_books", JSON.stringify(defaultBooks));
+      }
+
+      const storedProducts = localStorage.getItem("mr_products");
+      if (storedProducts) {
+        try {
+          setProducts(JSON.parse(storedProducts));
+        } catch (e) {
+          setProducts(defaultProducts);
+          localStorage.setItem("mr_products", JSON.stringify(defaultProducts));
+        }
+      } else {
+        setProducts(defaultProducts);
+        localStorage.setItem("mr_products", JSON.stringify(defaultProducts));
       }
 
       // Sync from Supabase
@@ -459,6 +564,43 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
     });
   };
 
+  const saveProducts = (updated: ProductItem[]) => {
+    setProducts(updated);
+    localStorage.setItem("mr_products", JSON.stringify(updated));
+  };
+
+  const createProduct = (prodData: Omit<ProductItem, "id">) => {
+    const id = "prod-" + Math.random().toString(36).substring(2, 9);
+    const newProduct: ProductItem = { ...prodData, id };
+    const updated = [...products, newProduct];
+    saveProducts(updated);
+
+    // Supabase background sync
+    supabase.from("mr_products").insert([newProduct]).then(({ error }) => {
+      if (error) console.error("Error syncing createProduct to Supabase:", error);
+    });
+  };
+
+  const updateProduct = (id: string, updates: Partial<ProductItem>) => {
+    const updated = products.map((p) => (p.id === id ? { ...p, ...updates } : p));
+    saveProducts(updated);
+
+    // Supabase background sync
+    supabase.from("mr_products").update(updates).eq("id", id).then(({ error }) => {
+      if (error) console.error("Error syncing updateProduct to Supabase:", error);
+    });
+  };
+
+  const deleteProduct = (id: string) => {
+    const updated = products.filter((p) => p.id !== id);
+    saveProducts(updated);
+
+    // Supabase background sync
+    supabase.from("mr_products").delete().eq("id", id).then(({ error }) => {
+      if (error) console.error("Error syncing deleteProduct to Supabase:", error);
+    });
+  };
+
   return (
     <DBContext.Provider
       value={{
@@ -467,6 +609,7 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
         events,
         settings,
         books,
+        products,
         createOrder,
         updateOrder,
         deleteOrder,
@@ -478,6 +621,9 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
         updateBook,
         createBook,
         deleteBook,
+        createProduct,
+        updateProduct,
+        deleteProduct,
         isLoading
       }}
     >

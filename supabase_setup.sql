@@ -101,3 +101,28 @@ INSERT INTO mr_form_templates (id, fields) VALUES
   {"id": "pre-6", "type": "longtext", "label": "Descreva sua maior busca espiritual, conflito ou dúvida ministerial atualmente", "required": true, "active": true}
 ]')
 ON CONFLICT (id) DO NOTHING;
+
+-- 6. Table for Showcase Products (Universidade Profética Vitrine)
+CREATE TABLE IF NOT EXISTS mr_products (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  lessons INT NOT NULL DEFAULT 0,
+  checkout_url TEXT NOT NULL,
+  image_url TEXT,
+  price_cash NUMERIC NOT NULL,
+  price_installments TEXT NOT NULL,
+  type TEXT NOT NULL DEFAULT 'individual', -- 'individual' or 'package'
+  description TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Seed default products
+INSERT INTO mr_products (id, title, lessons, checkout_url, image_url, price_cash, price_installments, type, description) VALUES
+('prod-1', 'Curso Tribunal Celestial', 20, 'https://chk.eduzz.com/6W4GEB5O0Z', '', 97.00, '12x R$ 10,03', 'individual', 'Aprenda a operar no âmbito legal dos céus e a revogar decretos contrários ao seu destino.'),
+('prod-2', 'Curso Oração em Línguas', 16, 'https://chk.eduzz.com/KW8Z6QD201', '', 97.00, '12x R$ 10,03', 'individual', 'Mergulhe no mistério do falar em línguas e ative uma comunicação de nível profético com o Pai.'),
+('prod-3', 'Curso de Ministério dos Anjos', 8, 'https://chk.eduzz.com/89AX7G180D', '', 97.00, '12x R$ 10,03', 'individual', 'Entenda o serviço e a ativação dos seres celestiais enviados para cooperar com os herdeiros da salvação.'),
+('prod-4', 'Formação Cativeiros Espirituais', 12, 'https://wa.me/5521981116787?text=Olá! Quero me inscrever na Formação Cativeiros Espirituais.', '', 297.00, '12x R$ 30,72', 'individual', 'Identifique e desmonte as legalidades que prendem famílias, finanças e ministérios em prisões espirituais.'),
+('prod-5', 'Curso Avançado de Libertação Individual', 26, 'https://wa.me/5521981116787?text=Olá! Quero me inscrever no Curso Avançado de Libertação Individual.', '', 297.00, '12x R$ 30,72', 'individual', 'Um guia prático e teológico passo a passo para libertação e cura interior profunda.'),
+('prod-6', 'Universidade Profética VIP', 150, 'https://chk.eduzz.com/797ZDYPA0E', '', 297.00, '12x R$ 30,72', 'package', 'O pacote completo e vitalício com acesso a todos os 12 cursos proféticos e lives exclusivas.')
+ON CONFLICT (id) DO NOTHING;
+

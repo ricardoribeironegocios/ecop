@@ -83,13 +83,13 @@ export default function CaravanaIsraelPage() {
     <div className="font-sans antialiased bg-slate-50 text-slate-900 select-none">
 
       {/* 1. Hero Section */}
-      <section className="relative min-h-[85vh] bg-slate-950 flex flex-col justify-center overflow-hidden">
+      <section className="relative min-h-[90vh] md:min-h-[105vh] bg-slate-950 flex flex-col justify-start overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-100 z-0"
+          className="absolute inset-0 bg-cover bg-[center_bottom] opacity-100 z-0"
           style={{ backgroundImage: "url('/caravana-israel-hero.jpg')" }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10 w-full flex justify-center lg:justify-start">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-36 z-10 w-full flex justify-center lg:justify-start">
           {/* Glassmorphism Frame Box */}
           <div className="bg-transparent border border-slate-900/20 backdrop-blur-md rounded-3xl p-8 sm:p-10 max-w-xl w-full text-left space-y-6 shadow-2xl">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-700 rounded-full text-[10px] font-bold uppercase tracking-wider">
