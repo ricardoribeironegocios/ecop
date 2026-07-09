@@ -279,7 +279,7 @@ export default function BibliotecaCompletaPage() {
           </span>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight uppercase max-w-4xl mx-auto">
-            EBOOKS DO <span className="text-amber-500 bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">APÓSTOLO RICARDO RIBEIRO</span>
+            EBOOKS DO <span className="text-brand-gradient">APÓSTOLO RICARDO RIBEIRO</span>
           </h1>
 
           <p className="text-sm sm:text-base text-slate-350 font-medium leading-relaxed max-w-2xl mx-auto">
@@ -316,7 +316,7 @@ export default function BibliotecaCompletaPage() {
                 className={`w-full py-3 px-6 rounded-xl font-black text-xs uppercase tracking-wider transition-all duration-350 cursor-pointer ${
                   isComboActive 
                     ? "bg-emerald-600 hover:bg-emerald-500 text-white" 
-                    : "bg-amber-500 hover:bg-amber-455 text-slate-950 hover:scale-[1.03]"
+                    : "bg-brand-gradient text-white hover:scale-[1.03]"
                 }`}
               >
                 {isComboActive ? "✓ Pacote Selecionado" : "Selecionar Todos (50% Off)"}
@@ -418,7 +418,7 @@ export default function BibliotecaCompletaPage() {
                       type="button"
                       className={`w-full py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-colors cursor-pointer border-0 ${
                         isSelected 
-                          ? "bg-amber-500 text-slate-950" 
+                          ? "bg-brand-gradient text-white" 
                           : "bg-slate-100 hover:bg-slate-200 text-slate-700"
                       }`}
                     >
@@ -571,11 +571,11 @@ export default function BibliotecaCompletaPage() {
                     selectedIds.length === 0 
                       ? "bg-slate-800 text-slate-500 cursor-not-allowed" 
                       : isComboActive 
-                        ? "bg-amber-500 hover:bg-amber-450 text-slate-955 hover:scale-[1.03]" 
+                        ? "bg-brand-gradient text-white hover:scale-[1.03]" 
                         : "bg-emerald-600 hover:bg-emerald-500 text-white hover:scale-[1.03]"
                   }`}
                 >
-                  <MessageSquare className={`w-4.5 h-4.5 ${isComboActive ? "fill-slate-950 stroke-none" : "fill-white stroke-none"}`} />
+                  <MessageSquare className={`w-4.5 h-4.5 ${isComboActive ? "fill-white stroke-none" : "fill-white stroke-none"}`} />
                   <span>{isComboActive ? "Solicitar Link do Cartão" : "Comprar via WhatsApp"}</span>
                 </button>
 

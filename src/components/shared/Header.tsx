@@ -41,17 +41,11 @@ export default function Header() {
           
           {/* Logo / Branding */}
           <Link href="/" className="flex items-center gap-2 group">
-            <span className="w-10 h-10 bg-slate-900 text-white rounded-xl font-bold flex items-center justify-center text-lg border border-slate-800 shadow-md group-hover:scale-105 transition-transform">
-              R
-            </span>
-            <div className="flex flex-col text-left">
-              <span className="font-extrabold text-slate-900 tracking-tight text-base leading-none">
-                RICARDO RIBEIRO
-              </span>
-              <span className="text-[9px] text-amber-600 font-bold uppercase tracking-widest mt-0.5">
-                Escola Profética & Ministério
-              </span>
-            </div>
+            <img
+              src="/logo-ecop.png"
+              alt="ECOP Logo"
+              className="h-10 w-auto object-contain group-hover:scale-105 transition-transform"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -78,7 +72,7 @@ export default function Header() {
             </Link>
             <Link
               href="/#mapa"
-              className="text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 border border-slate-950 px-4.5 py-2.5 rounded-xl transition-all shadow-md shadow-slate-950/10 uppercase tracking-wider"
+              className="text-xs font-black text-white bg-brand-gradient border-0 px-4.5 py-2.5 rounded-xl transition-all shadow-md shadow-amber-950/10 uppercase tracking-wider hover:scale-[1.02]"
             >
               Mapa Profético
             </Link>
@@ -126,7 +120,7 @@ export default function Header() {
             <Link
               href="/#mapa"
               onClick={handleLinkClick}
-              className="w-full text-center text-sm font-extrabold text-white bg-slate-900 py-3 rounded-xl uppercase tracking-wider"
+              className="w-full text-center text-sm font-extrabold text-white bg-brand-gradient py-3 rounded-xl uppercase tracking-wider"
             >
               Solicitar Mapa Profético
             </Link>

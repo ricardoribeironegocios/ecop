@@ -91,7 +91,7 @@ export default function EntendaOMapaPage() {
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight max-w-4xl mx-auto drop-shadow-2xl">
-            Decifre o Desenho de Deus para sua Vida e <span className="text-amber-500 bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">Destrave seu Chamado</span>
+            Decifre o Desenho de Deus para sua Vida e <span className="text-brand-gradient">Destrave seu Chamado</span>
           </h1>
 
           <p className="text-sm sm:text-base text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
@@ -101,7 +101,7 @@ export default function EntendaOMapaPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <a 
               href="#oferta"
-              className="px-8 py-4 bg-amber-500 hover:bg-amber-455 text-slate-950 font-black text-xs rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-amber-500/10 border-0 flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-brand-gradient text-white font-black text-xs rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-amber-500/10 border-0 flex items-center justify-center gap-2"
             >
               <span>Ver Planos e Solicitar</span>
               <ArrowRight className="w-4 h-4" />
@@ -303,45 +303,73 @@ export default function EntendaOMapaPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            
+
             {/* Standard */}
             <div className="bg-white border border-slate-200/60 rounded-3xl p-6 sm:p-8 flex flex-col justify-between text-left hover:border-slate-350 transition-all shadow-sm">
               <div className="space-y-6">
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="text-lg font-black text-slate-950">Mapa Standard</h3>
-                    <p className="text-xs text-slate-450 font-bold mt-0.5">Diagnóstico Teológico Básico</p>
+                    <p className="text-xs text-slate-450 font-bold mt-0.5">Diagnóstico Fundamental</p>
                   </div>
                   <span className="text-[10px] font-black text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md uppercase tracking-wider">
                     Essencial
                   </span>
                 </div>
 
-                <div className="py-2">
-                  <span className="text-3xl font-black text-slate-950">R$ 150</span>
-                  <span className="text-[10px] text-slate-400 font-bold ml-1">/taxa única de elaboração</span>
+                <div className="py-1">
+                  <span className="text-3xl font-black text-slate-950 font-mono">R$ 77</span>
+                  <span className="text-[10px] text-slate-450 font-bold ml-1">/ Super Preço</span>
                 </div>
 
-                <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                  Ideal para um alinhamento essencial de dons espirituais e detecção de principais inclinações de ministério.
-                </p>
-
-                <ul className="space-y-3 text-xs text-slate-650 font-bold border-t border-slate-100 pt-6">
+                <ul className="space-y-2 text-[11px] text-slate-650 font-semibold border-t border-slate-100 pt-4">
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>Perguntas Essenciais do Perfil</span>
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>SIGNIFICADO DO NOME</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>Mapeamento de 5 Esferas Vocacionais</span>
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>SIGNIFICADO DOS SOBRENOMES</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>Entrega do PDF estruturado</span>
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>INTERPRETAÇÃO PROFÉTICA DOS NOMES</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span>Prazo de entrega: 48h (até 2 pessoas)</span>
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>NOME ESCRITO EM HEBRAICO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>DATA DE NASCIMENTO BÍBLICA</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>TEXTO DA PARASHÁ</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
+                    <span className="text-slate-500 font-medium">NOME DA TRIBO <span className="font-bold text-slate-700">SEM ESTUDO</span></span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
+                    <span className="text-slate-500 font-medium">NOME DO MÊS BÍBLICO <span className="font-bold text-slate-700">SEM ESTUDO</span></span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
+                    <span className="text-slate-500 font-medium"><span className="font-bold text-slate-700">SEM TABELAS</span> DE ESTUDO EM ANEXO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
+                    <span className="text-slate-500 font-medium"><span className="font-bold text-slate-700">SEM ESTUDO</span> SOBRE CADA LETRA BÍBLICA</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>CERCA DE 4 PÁGINAS</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md w-fit">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>ENTREGA EM 2 HORAS!!!!</span>
                   </li>
                 </ul>
               </div>
@@ -359,7 +387,7 @@ export default function EntendaOMapaPage() {
 
             {/* Premium */}
             <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between text-left hover:border-amber-500/40 relative shadow-2xl">
-              <span className="absolute -top-3.5 left-6 px-3 py-1 bg-amber-500 text-slate-950 font-black uppercase tracking-wider text-[9px] rounded-full">
+              <span className="absolute -top-3.5 left-6 px-3 py-1 bg-brand-gradient text-white font-black uppercase tracking-wider text-[9px] rounded-full">
                 Recomendado
               </span>
 
@@ -367,48 +395,76 @@ export default function EntendaOMapaPage() {
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="text-lg font-black text-white">Mapa Premium</h3>
-                    <p className="text-xs text-slate-400 font-bold mt-0.5">Diagnóstico Profundo & Profiling</p>
+                    <p className="text-xs text-slate-400 font-bold mt-0.5">Diagnóstico Profundo</p>
                   </div>
-                  <span className="text-[10px] font-black text-slate-950 bg-amber-500 px-2.5 py-0.5 rounded-md uppercase tracking-wider">
+                   <span className="text-[10px] font-black text-white bg-brand-gradient px-2.5 py-0.5 rounded-md uppercase tracking-wider">
                     Completo
                   </span>
                 </div>
 
-                <div className="py-2">
-                  <span className="text-3xl font-black text-white">R$ 290</span>
-                  <span className="text-[10px] text-slate-500 font-bold ml-1">/taxa única de elaboração</span>
+                <div className="py-1">
+                  <span className="text-3xl font-black text-white font-mono">R$ 297</span>
+                  <span className="text-[10px] text-slate-400 font-bold ml-1">/ Preço Promocional</span>
                 </div>
 
-                <p className="text-xs text-slate-400 leading-relaxed font-medium">
-                  Para quem deseja destrinchar cativeiros hereditários e amarras profundas familiares, além de maior personalização espiritual.
-                </p>
-
-                <ul className="space-y-3 text-xs text-slate-300 font-bold border-t border-slate-900 pt-6">
+                <ul className="space-y-2 text-[11px] text-slate-300 font-semibold border-t border-slate-800 pt-4">
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-amber-500 shrink-0" />
-                    <span>Todas as perguntas Standard inclusas</span>
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>SIGNIFICADO DO NOME</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-amber-500 shrink-0" />
-                    <span>Campos extras + Upload de foto de perfil</span>
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>SIGNIFICADO DOS SOBRENOMES</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-amber-500 shrink-0" />
-                    <span>Mapeamento de cativeiros e cativeiros hereditários</span>
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>INTERPRETAÇÃO PROFÉTICA DOS NOMES</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-amber-500 shrink-0" />
-                    <span>Prioridade na Fila (48h + 24h por dupla adicional)</span>
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>NOME ESCRITO EM HEBRAICO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>DATA DE NASCIMENTO BÍBLICA</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>TEXTO DA PARASHÁ</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>NOME DA TRIBO E ESTUDO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>NOME DO MÊS BÍBLICO E ESTUDO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>TABELAS DE ESTUDO EM ANEXO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>ESTUDO SOBRE CADA LETRA BÍBLICA</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>MAIS DE 15 PÁGINAS</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-amber-500 font-bold bg-amber-500/10 px-2 py-0.5 rounded-md w-fit">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>ENTREGA EM 24 HORAS!!!</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="pt-8">
+               <div className="pt-8">
                 <button
                   onClick={() => handleWhatsappCta("Premium")}
-                  className="w-full py-4.5 bg-amber-500 hover:bg-amber-455 text-slate-950 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-colors border-0"
+                  className="w-full py-4.5 bg-brand-gradient text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-colors border-0"
                 >
-                  <MessageSquare className="w-4 h-4 fill-slate-950 stroke-none" />
+                  <MessageSquare className="w-4 h-4 fill-white stroke-none" />
                   <span>Garantir Mapa Premium</span>
                 </button>
               </div>

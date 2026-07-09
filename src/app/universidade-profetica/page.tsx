@@ -83,7 +83,7 @@ export default function UniversidadeProfeticaPage() {
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight max-w-4xl mx-auto drop-shadow-2xl">
-            Acelere sua Ativação na <span className="text-amber-500 bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">Universidade Profética Internacional</span>
+            Acelere sua Ativação na <span className="text-brand-gradient">Universidade Profética Internacional</span>
           </h1>
 
           <p className="text-sm sm:text-base text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
@@ -95,7 +95,7 @@ export default function UniversidadeProfeticaPage() {
               href="https://chk.eduzz.com/797ZDYPA0E"
               target="_blank"
               rel="noreferrer"
-              className="px-8 py-4 bg-amber-500 hover:bg-amber-455 text-slate-955 font-black text-xs rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-amber-500/10 border-0 flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-brand-gradient text-white font-black text-xs rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-amber-500/10 border-0 flex items-center justify-center gap-2"
             >
               <span>Matricular-se Agora</span>
               <ArrowRight className="w-4 h-4" />
@@ -189,7 +189,7 @@ export default function UniversidadeProfeticaPage() {
                 href="https://chk.eduzz.com/797ZDYPA0E?country=BRA"
                 target="_blank"
                 rel="noreferrer"
-                className="px-8 py-4 bg-amber-500 hover:bg-amber-455 text-slate-955 font-black text-xs rounded-xl uppercase tracking-wider inline-flex items-center gap-2 shadow-lg"
+                className="px-8 py-4 bg-brand-gradient text-white font-black text-xs rounded-xl uppercase tracking-wider inline-flex items-center gap-2 shadow-lg"
               >
                 <span>Adquirir Biblioteca Completa</span>
                 <ArrowRight className="w-4 h-4" />
@@ -293,9 +293,9 @@ export default function UniversidadeProfeticaPage() {
                 href="https://chk.eduzz.com/797ZDYPA0E?country=BRA"
                 target="_blank"
                 rel="noreferrer"
-                className="w-full py-4 bg-amber-500 hover:bg-amber-455 text-slate-950 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-colors border-0 shadow-lg shadow-amber-500/10"
+                className="w-full py-4 bg-brand-gradient text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-colors border-0 shadow-lg shadow-amber-500/10"
               >
-                <Lock className="w-4 h-4 fill-slate-950 stroke-none" />
+                <Lock className="w-4 h-4 fill-white stroke-none" />
                 <span>Adquirir Acesso VIP</span>
               </a>
             </div>

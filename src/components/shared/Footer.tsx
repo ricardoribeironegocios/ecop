@@ -22,12 +22,11 @@ export default function Footer() {
           {/* Main Info */}
           <div className="md:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2 group">
-              <span className="w-9 h-9 bg-white text-slate-950 rounded-xl font-black flex items-center justify-center text-lg">
-                R
-              </span>
-              <span className="font-extrabold text-white tracking-tight text-base leading-none">
-                RICARDO RIBEIRO
-              </span>
+              <img
+                src="/logo-ecop-white.png"
+                alt="ECOP Logo"
+                className="h-9 w-auto object-contain group-hover:scale-105 transition-transform"
+              />
             </Link>
             <p className="text-xs text-slate-500 font-medium leading-relaxed max-w-sm">
               Ministério de capacitação apostólica e ativação profética. Apoiando a igreja local no despertamento de dons e alinhamento com o destino divino de cada filho de Deus.

@@ -1,5 +1,37 @@
 @import "tailwindcss";
 
+@theme {
+  /* Paleta ECOP — Tons do Anexo (Vermelhos/Coral, sem Amarelo) */
+  --color-brand-dark:   #2B0506;
+  --color-brand-wine:   #490E24;
+  --color-brand-carmim: #8C0E0F;
+  --color-brand-coral:  #E6392A;
+  --color-brand-fire:   #E63946;
+
+  /* Sobrescrever a paleta 'amber' do Tailwind para aplicar os novos tons globalmente */
+  --color-amber-50:     #FFF5F5;
+  --color-amber-100:    #FFE3E3;
+  --color-amber-200:    #FFC9C9;
+  --color-amber-300:    #FFA3A3;
+  --color-amber-400:    #FF5A4A; /* Vermelho Super Claro/Coral */
+  --color-amber-500:    #E6392A; /* Vermelho Claro */
+  --color-amber-600:    #8C0E0F; /* Vermelho Médio */
+  --color-amber-700:    #2B0506; /* Vermelho Escuro */
+
+  --animate-fade-in: fade-in 0.35s ease-out forwards;
+  --animate-slide-up: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(14px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -14,8 +46,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
   }
 }
 
@@ -27,3 +59,26 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+/* Classes para o gradiente linear destaque premium */
+.bg-brand-gradient {
+  background: linear-gradient(180deg, #FF5A4A 0%, #E6392A 50%, #8C0E0F 100%) !important;
+}
+
+.bg-brand-gradient:hover {
+  background: linear-gradient(180deg, #FF7C6D 0%, #FF5A4A 50%, #A61416 100%) !important;
+}
+
+.text-brand-gradient {
+  background: linear-gradient(180deg, #FF5A4A 0%, #E6392A 50%, #8C0E0F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Scrollbar customizada premium */
+::-webkit-scrollbar       { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #f8fafc; }
+::-webkit-scrollbar-thumb { background: #8C0E0F; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #E6392A; }
+

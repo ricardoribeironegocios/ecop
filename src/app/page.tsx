@@ -3,19 +3,19 @@
 import React, { useState, useRef } from "react";
 import { useDB, EventItem } from "@/context/DBContext";
 import Link from "next/link";
-import { 
-  Play, 
-  MessageSquare, 
-  Sparkles, 
-  BookOpen, 
-  Compass, 
-  Calendar, 
-  ChevronRight, 
-  ArrowRight, 
-  Check, 
-  Users, 
-  Globe, 
-  Award, 
+import {
+  Play,
+  MessageSquare,
+  Sparkles,
+  BookOpen,
+  Compass,
+  Calendar,
+  ChevronRight,
+  ArrowRight,
+  Check,
+  Users,
+  Globe,
+  Award,
   X,
   ArrowUpRight,
   ChevronLeft,
@@ -33,12 +33,12 @@ export default function Home() {
   const courses = [
     {
       id: "crs-1",
-      title: "ECOP - Escola de Capacitação Profética",
-      tagline: "Nosso treinamento fundamental de ativação e discernimento espiritual.",
+      title: "ECOP - Mentoria e Paternidade Espiritual",
+      tagline: "Paternidade espiritual para uma vida de direção e maturidade.",
       price: "",
-      description: "Desenvolva uma sensibilidade aguçada para ouvir a voz de Deus, compreender visões proféticas e atuar ativamente no seu chamado ministerial com base bíblica sólida.",
+      description: "Relacionamento direto e exclusivo com o apóstolo Ricardo através de grupo no whatsapp e ZOOM, para aconselhamento, acompanhamento dos meses e festas bíblicas.",
       checkout_url: "https://sun.eduzz.com/ecop-capacitacao",
-      details_url: "https://wa.me/5521981116787?text=Olá! Gostaria de obter mais informações sobre a Escola de Capacitação Profética (ECOP).",
+      details_url: "https://wa.me/5521981116787?text=Olá! Gostaria de obter mais informações sobre a Mentoria e Paternidade Espiritual.",
       is_popular: true
     },
     {
@@ -95,46 +95,58 @@ export default function Home() {
 
   return (
     <div className="font-sans antialiased bg-slate-50 text-slate-900 select-none">
-      
+
       {/* 1. Hero Section */}
       <section id="home" className="relative min-h-[90vh] bg-slate-950 flex flex-col justify-center overflow-hidden">
-        {/* Soft background light */}
-        <div className="absolute inset-0 bg-cover bg-center opacity-40 bg-no-repeat" style={{ backgroundImage: "url('/hero-bg.png')" }} />
-        <div className="absolute inset-0 bg-slate-950/80 z-0" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(15,23,42,0.4),#020617)] z-0" />
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-amber-500/10 rounded-full blur-3xl" />
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10 w-full text-center space-y-8">
-          
-          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-500 rounded-full text-xs font-bold uppercase tracking-wider mx-auto animate-pulse">
-            <Sparkles className="w-4 h-4" />
-            <span>Escola de Capacitação Profética</span>
-          </span>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white drop-shadow-2xl tracking-tight max-w-5xl mx-auto leading-tight">
-            Descubra o Propósito que <span className="text-amber-500 bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">Deus Preparou para Você</span>
-          </h1>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 lg:pt-28 pb-20 lg:pb-28 z-10 w-full">
+          {/* Text and CTAs */}
+          <div className="max-w-2xl xl:max-w-3xl space-y-6 text-left flex flex-col items-start relative z-10">
+            <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-500 rounded-full text-xs font-bold uppercase tracking-wider animate-pulse">
+              <Sparkles className="w-4 h-4" />
+              <span>Escola de Capacitação Profética</span>
+            </span>
 
-          <p className="text-base sm:text-lg text-slate-300 drop-shadow-md max-w-2xl mx-auto leading-relaxed font-medium">
-            Capacitação, direção profética e experiências que irão transformar sua caminhada ministerial.
-          </p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white drop-shadow-2xl tracking-tight leading-tight">
+              Descubra o Propósito <br />
+              que <span className="text-brand-gradient">Deus Preparou</span> <br />
+              <span className="text-brand-gradient">para Você</span>
+            </h1>
 
-          <div className="flex flex-wrap gap-4 justify-center pt-6">
-            <Link
-              href="#cursos"
-              className="px-8 py-4 bg-amber-500 hover:bg-amber-455 text-slate-955 rounded-xl text-sm font-black flex items-center gap-2 shadow-xl border-0 cursor-pointer active:scale-98 transition-all"
-            >
-              <span>Conhecer a ECOP</span>
-            </Link>
-            <Link
-              href="#mapa"
-              className="px-8 py-4 bg-slate-900 text-white hover:bg-slate-800 rounded-xl text-sm font-black uppercase tracking-wider border border-slate-800 shadow-xl flex items-center gap-2 cursor-pointer transition-all"
-            >
-              <span>Solicitar Mapa Profético</span>
-              <ArrowRight className="w-5 h-5 text-amber-500" />
-            </Link>
+            <p className="text-base sm:text-lg text-slate-200 drop-shadow-md max-w-xl leading-relaxed font-medium">
+              Capacitação, direção profética e experiências que irão transformar sua caminhada ministerial.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-4">
+              <Link
+                href="#cursos"
+                className="px-8 py-4 bg-brand-gradient text-white rounded-xl text-sm font-black flex items-center gap-2 shadow-xl border-0 cursor-pointer active:scale-98 transition-all"
+              >
+                <span>Conhecer a ECOP</span>
+              </Link>
+              <Link
+                href="#mapa"
+                className="px-8 py-4 bg-slate-900 text-white hover:bg-slate-800 rounded-xl text-sm font-black uppercase tracking-wider border border-slate-800 shadow-xl flex items-center gap-2 cursor-pointer transition-all"
+              >
+                <span>Solicitar Mapa Profético</span>
+                <ArrowRight className="w-5 h-5 text-amber-500" />
+              </Link>
+            </div>
           </div>
+        </div>
 
+        {/* Large Portrait Image positioned absolutely */}
+        <div className="absolute right-0 bottom-0 top-0 w-full lg:w-[58%] xl:w-[54%] hidden lg:block z-0 pointer-events-none select-none">
+          <div className="relative w-full h-full">
+            {/* Blending overlay to smooth the light/white fade into the dark background - restricted to left 55% */}
+            <div className="absolute left-0 top-0 bottom-0 w-[55%] bg-gradient-to-r from-slate-950 via-slate-950/85 to-transparent z-10" />
+            <img
+              src="/hero-portrait-new.png"
+              alt="Apóstolo Ricardo Ribeiro"
+              className="w-full h-full object-cover object-right-bottom drop-shadow-2xl opacity-100"
+            />
+          </div>
         </div>
       </section>
 
@@ -142,7 +154,7 @@ export default function Home() {
       <section className="py-24 bg-white border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             {/* Presentation Info */}
             <div className="lg:col-span-6 space-y-6 text-left">
               <span className="text-xs font-black uppercase text-amber-600 tracking-wider">Quem Somos</span>
@@ -167,14 +179,14 @@ export default function Home() {
                 <div className="space-y-1">
                   <h4 className="text-2xl font-black text-slate-950 flex items-center gap-1">
                     <Users className="w-5 h-5 text-amber-500" />
-                    <span>5k+</span>
+                    <span>200k+</span>
                   </h4>
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Alunos Ativados</p>
                 </div>
                 <div className="space-y-1">
                   <h4 className="text-2xl font-black text-slate-950 flex items-center gap-1">
                     <Globe className="w-5 h-5 text-amber-500" />
-                    <span>15+</span>
+                    <span>18+</span>
                   </h4>
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Países Alcançados</p>
                 </div>
@@ -208,24 +220,24 @@ export default function Home() {
       {/* 3. Nova Seção: Experiências do Ministério (Caravana Israel) */}
       <section className="relative py-24 bg-slate-950 text-white overflow-hidden">
         {/* Large Jerusalem background with dark overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-25" 
-          style={{ backgroundImage: "url('/jerusalem-modern.png')" }} 
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-25"
+          style={{ backgroundImage: "url('/jerusalem-modern.png')" }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950 z-0" />
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             <div className="lg:col-span-7 space-y-6 text-left">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-500 rounded-full text-[10px] font-bold uppercase tracking-wider">
                 Experiências do Ministério
               </span>
-              
+
               <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight text-white">
                 🇮🇱 Caravana Profética para Israel
               </h2>
-              
+
               <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed">
                 Muito mais do que turismo. <br />
                 Uma experiência espiritual conduzida pelo Apóstolo Ricardo Ribeiro nos lugares onde a Bíblia aconteceu. Viaje com acompanhamento completo, ministrações, atos proféticos e uma experiência inesquecível na Terra Santa.
@@ -262,7 +274,7 @@ export default function Home() {
               <div className="flex flex-wrap gap-4 pt-4">
                 <Link
                   href="/caravana-israel"
-                  className="px-5 py-3.5 bg-amber-500 hover:bg-amber-455 text-slate-950 font-black rounded-xl text-xs uppercase tracking-wider transition-colors border-0"
+                  className="px-5 py-3.5 bg-brand-gradient text-white font-black rounded-xl text-xs uppercase tracking-wider transition-colors border-0"
                 >
                   Conhecer a Caravana
                 </Link>
@@ -279,10 +291,10 @@ export default function Home() {
             <div className="lg:col-span-5 hidden lg:block">
               {/* Elegant floating visual element */}
               <div className="w-full aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative">
-                <img 
-                  src="/jerusalem-modern.png" 
-                  alt="Jerusalém" 
-                  className="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700" 
+                <img
+                  src="/jerusalem-modern.png"
+                  alt="Jerusalém"
+                  className="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
                 <span className="absolute bottom-4 left-6 text-[10px] font-black tracking-widest uppercase text-amber-500">Jerusalém Moderna</span>
@@ -296,7 +308,7 @@ export default function Home() {
       {/* 4. Cursos ECOP Section */}
       <section id="cursos" className="py-24 bg-slate-50 border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
-          
+
           <div className="space-y-3">
             <span className="text-xs font-black uppercase text-amber-600 tracking-wider">ECOP Treinamentos</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight leading-none">Cursos e Ativações de Destino</h2>
@@ -305,18 +317,17 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {courses.map((course) => (
-              <div 
+              <div
                 key={course.id}
-                className={`bg-white border rounded-3xl p-6 shadow-premium flex flex-col justify-between text-left transition-all hover:scale-[1.01] hover:-translate-y-1 ${
-                  course.is_popular ? "border-amber-500/80 shadow-amber-500/5 relative" : "border-slate-100"
-                }`}
+                className={`bg-white border rounded-3xl p-6 shadow-premium flex flex-col justify-between text-left transition-all hover:scale-[1.01] hover:-translate-y-1 ${course.is_popular ? "border-amber-500/80 shadow-amber-500/5 relative" : "border-slate-100"
+                  }`}
               >
                 {course.is_popular && (
                   <span className="absolute -top-3.5 left-6 px-3 py-1 bg-amber-500 text-slate-950 font-black uppercase tracking-wider text-[9px] rounded-full">
                     Mais Procurado
                   </span>
                 )}
-                
+
                 <div className="space-y-4">
                   <div className="space-y-1.5">
                     <h3 className="text-base sm:text-lg font-black text-slate-900 leading-snug">{course.title}</h3>
@@ -332,7 +343,7 @@ export default function Home() {
                       <span className="text-sm font-black text-slate-950 font-mono">{course.price}</span>
                     </div>
                   )}
-                  
+
                   <div className="flex flex-col gap-2">
                     <a
                       href={course.details_url}
@@ -343,16 +354,15 @@ export default function Home() {
                       <span>Saiba Mais</span>
                       <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
                     </a>
-                    
+
                     <a
                       href={course.checkout_url}
                       target="_blank"
                       rel="noreferrer"
-                      className={`w-full py-3 rounded-xl text-xs font-black uppercase tracking-wider text-center flex items-center justify-center gap-1.5 transition-colors border-0 cursor-pointer ${
-                        course.is_popular 
-                          ? "bg-amber-500 hover:bg-amber-455 text-slate-950" 
+                      className={`w-full py-3 rounded-xl text-xs font-black uppercase tracking-wider text-center flex items-center justify-center gap-1.5 transition-colors border-0 cursor-pointer ${course.is_popular
+                          ? "bg-brand-gradient text-white"
                           : "bg-slate-900 hover:bg-slate-800 text-white shadow-sm"
-                      }`}
+                        }`}
                     >
                       <span>Matricular-se</span>
                       <ArrowUpRight className="w-4 h-4" />
@@ -369,23 +379,23 @@ export default function Home() {
       {/* 5. Nova Seção: Biblioteca Profética (Slider/Carousel) */}
       <section id="biblioteca" className="py-24 bg-white border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
-          
+
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="text-left space-y-2">
               <span className="text-xs font-black uppercase text-amber-600 tracking-wider block">Estudo Avançado</span>
               <h2 className="text-3xl font-extrabold text-slate-950 tracking-tight">Biblioteca Profética</h2>
               <p className="text-xs text-slate-500 font-bold">Aprofunde seu conhecimento com os livros digitais do Apóstolo Ricardo Ribeiro.</p>
             </div>
-            
+
             {/* Carousel navigation buttons */}
             <div className="flex gap-2">
-              <button 
+              <button
                 onClick={() => scrollCarousel("left")}
                 className="p-2.5 border border-slate-200 hover:bg-slate-50 rounded-xl cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
-              <button 
+              <button
                 onClick={() => scrollCarousel("right")}
                 className="p-2.5 border border-slate-200 hover:bg-slate-50 rounded-xl cursor-pointer"
               >
@@ -395,13 +405,13 @@ export default function Home() {
           </div>
 
           {/* Carousel Slider */}
-          <div 
+          <div
             ref={carouselRef}
             className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pr-4"
             style={{ scrollbarWidth: "none" }}
           >
             {books.slice(0, 4).map((book) => (
-              <div 
+              <div
                 key={book.id}
                 className="snap-start w-[280px] bg-slate-50 border border-slate-200/50 rounded-3xl p-5 flex flex-col justify-between flex-shrink-0 text-left hover:border-slate-350 transition-colors shadow-sm"
               >
@@ -472,15 +482,15 @@ export default function Home() {
       {/* 6. Mapa Profético Section */}
       <section id="mapa" className="py-24 bg-slate-50 border-b border-slate-100 relative overflow-hidden">
         <div className="absolute right-0 top-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-        
+
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12 relative z-10">
-          
+
           <div className="space-y-4">
             <span className="text-xs font-black uppercase text-amber-600 tracking-wider">Direcionamento Pessoal</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight leading-none">Solicite Seu Mapa Profético</h2>
             <p className="text-xs text-slate-500 font-bold max-w-md mx-auto">Um diagnóstico profundo de chamado, revelação de bloqueios e atalho espiritual desenhado manualmente.</p>
             <div className="pt-2">
-              <Link 
+              <Link
                 href="/entenda-o-mapa"
                 className="inline-flex items-center gap-1.5 px-4.5 py-2 border border-slate-200 hover:bg-slate-100/50 hover:border-slate-350 text-slate-700 rounded-xl text-xs font-black uppercase tracking-wider transition-all"
               >
@@ -488,10 +498,6 @@ export default function Home() {
                 <ArrowRight className="w-3.5 h-3.5 text-amber-600" />
               </Link>
             </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            
             {/* Standard Plan */}
             <div className="bg-slate-50/50 border border-slate-200/60 rounded-3xl p-6 sm:p-8 flex flex-col justify-between text-left hover:border-slate-350 hover:bg-white transition-all">
               <div className="space-y-6">
@@ -503,26 +509,59 @@ export default function Home() {
                   <span className="text-xs font-black text-amber-600 bg-amber-500/10 px-2.5 py-1 rounded-lg">Essencial</span>
                 </div>
 
-                <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                  Análise das perguntas chave do ministério com revelação básica de direções geográficas, bíblicas e ativação ministerial. Ideal para um primeiro alinhamento.
-                </p>
+                <div className="py-1">
+                  <span className="text-3xl font-black text-slate-950 font-mono">R$ 77</span>
+                  <span className="text-[10px] text-slate-450 font-bold ml-1">/ Super Preço</span>
+                </div>
 
-                <ul className="space-y-2.5 text-xs text-slate-600 font-bold">
+                <ul className="space-y-2 text-[11px] text-slate-650 font-semibold border-t border-slate-100 pt-4">
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-500" />
-                    <span>Perguntas Essenciais do Perfil</span>
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>SIGNIFICADO DO NOME</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-500" />
-                    <span>Modelo de Formulário Standard</span>
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>SIGNIFICADO DOS SOBRENOMES</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-500" />
-                    <span>Entrega do PDF via WhatsApp</span>
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>INTERPRETAÇÃO PROFÉTICA DOS NOMES</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-500" />
-                    <span>Prazo de entrega: 48h (até 2 pessoas)</span>
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>NOME ESCRITO EM HEBRAICO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>DATA DE NASCIMENTO BÍBLICA</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>TEXTO DA PARASHÁ</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
+                    <span className="text-slate-500 font-medium">NOME DA TRIBO <span className="font-bold text-slate-700">SEM ESTUDO</span></span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
+                    <span className="text-slate-500 font-medium">NOME DO MÊS BÍBLICO <span className="font-bold text-slate-700">SEM ESTUDO</span></span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
+                    <span className="text-slate-500 font-medium"><span className="font-bold text-slate-700">SEM TABELAS</span> DE ESTUDO EM ANEXO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-slate-450 shrink-0" />
+                    <span className="text-slate-500 font-medium"><span className="font-bold text-slate-700">SEM ESTUDO</span> SOBRE CADA LETRA BÍBLICA</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>CERCA DE 4 PÁGINAS</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md w-fit">
+                    <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>ENTREGA EM 2 HORAS!!!!</span>
                   </li>
                 </ul>
               </div>
@@ -540,39 +579,72 @@ export default function Home() {
 
             {/* Premium Plan */}
             <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between text-left hover:border-amber-500/40 relative shadow-2xl">
-              <span className="absolute -top-3 left-6 px-3 py-1 bg-amber-500 text-slate-950 font-black uppercase tracking-wider text-[9px] rounded-full">
+              <span className="absolute -top-3 left-6 px-3 py-1 bg-brand-gradient text-white font-black uppercase tracking-wider text-[9px] rounded-full">
                 Recomendado
               </span>
-              
+
               <div className="space-y-6 text-white">
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="text-lg font-black text-white">Mapa Premium</h3>
-                    <p className="text-xs text-slate-400 font-bold mt-0.5">Mapeamento Avançado & Profiling</p>
+                    <p className="text-xs text-slate-400 font-bold mt-0.5">Mapeamento Avançado</p>
                   </div>
-                  <span className="text-xs font-black text-slate-950 bg-amber-500 px-2.5 py-1 rounded-lg">Avançado</span>
+                  <span className="text-xs font-black text-white bg-brand-gradient px-2.5 py-1 rounded-lg">Avançado</span>
                 </div>
 
-                <p className="text-xs text-slate-400 leading-relaxed font-medium">
-                  Ativação ministerial completa. Mapeamento profundo de legalidades hereditárias, cativeiros espirituais, foco vocacional e acompanhamento detalhado com foto.
-                </p>
+                <div className="py-1">
+                  <span className="text-3xl font-black text-white font-mono">R$ 297</span>
+                  <span className="text-[10px] text-slate-400 font-bold ml-1">/ Preço Promocional</span>
+                </div>
 
-                <ul className="space-y-2.5 text-xs text-slate-350 font-bold">
+                <ul className="space-y-2 text-[11px] text-slate-300 font-semibold border-t border-slate-800 pt-4">
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-amber-500" />
-                    <span>Todas as perguntas Standard</span>
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>SIGNIFICADO DO NOME</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-amber-500" />
-                    <span>Campos extras + Envio de Foto de perfil</span>
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>SIGNIFICADO DOS SOBRENOMES</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-amber-500" />
-                    <span>Diagnóstico de cativeiros detalhado</span>
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>INTERPRETAÇÃO PROFÉTICA DOS NOMES</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-amber-500" />
-                    <span>Entrega Prioritária: 48h + 24h por dupla adicional</span>
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>NOME ESCRITO EM HEBRAICO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>DATA DE NASCIMENTO BÍBLICA</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>TEXTO DA PARASHÁ</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>NOME DA TRIBO E ESTUDO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>NOME DO MÊS BÍBLICO E ESTUDO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>TABELAS DE ESTUDO EM ANEXO</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>ESTUDO SOBRE CADA LETRA BÍBLICA</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>MAIS DE 15 PÁGINAS</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-amber-500 font-bold bg-amber-500/10 px-2 py-0.5 rounded-md w-fit">
+                    <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>ENTREGA EM 24 HORAS!!!</span>
                   </li>
                 </ul>
               </div>
@@ -580,9 +652,9 @@ export default function Home() {
               <div className="pt-8 mt-8 border-t border-slate-800 space-y-4">
                 <button
                   onClick={() => handleWhatsappCta("Premium")}
-                  className="w-full py-3.5 bg-amber-500 hover:bg-amber-455 text-slate-950 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer transition-colors border-0"
+                  className="w-full py-3.5 bg-brand-gradient text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer transition-colors border-0"
                 >
-                  <MessageSquare className="w-4 h-4 fill-slate-950 stroke-none" />
+                  <MessageSquare className="w-4 h-4 fill-white stroke-none" />
                   <span>Solicitar no WhatsApp</span>
                 </button>
               </div>
@@ -592,31 +664,31 @@ export default function Home() {
 
           {/* Core Info Flow Banner */}
           <div className="bg-white border border-slate-200/60 shadow-sm rounded-3xl p-8 sm:p-10 max-w-5xl mx-auto relative overflow-hidden">
-            <h4 className="text-xs font-black uppercase text-slate-950 tracking-wider text-center mb-8 relative z-10">Como funciona o processo?</h4>
-            
+            <h4 className="text-xs font-black uppercase text-slate-955 tracking-wider text-center mb-8 relative z-10">Como funciona o processo?</h4>
+
             <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-4 relative z-10">
               {/* Connecting line for desktop */}
               <div className="hidden md:block absolute top-5 left-[10%] right-[10%] h-[2px] bg-slate-100 z-0" />
-              
+
               <div className="relative z-10 flex flex-col items-center text-center space-y-3 group">
-                <div className="w-10 h-10 rounded-full bg-slate-950 text-white flex items-center justify-center font-black text-sm shadow-md group-hover:scale-110 transition-transform">1</div>
-                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider leading-relaxed">Solicite no<br/>WhatsApp</p>
+                <div className="w-10 h-10 rounded-full bg-slate-955 text-white flex items-center justify-center font-black text-sm shadow-md group-hover:scale-110 transition-transform">1</div>
+                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider leading-relaxed">Solicite no<br />WhatsApp</p>
               </div>
               <div className="relative z-10 flex flex-col items-center text-center space-y-3 group">
                 <div className="w-10 h-10 rounded-full bg-white border-2 border-slate-200 text-slate-400 flex items-center justify-center font-black text-sm group-hover:border-slate-400 group-hover:text-slate-600 transition-all">2</div>
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-relaxed">Envie o PIX<br/>Manual</p>
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-relaxed">Envie o PIX<br />Manual</p>
               </div>
               <div className="relative z-10 flex flex-col items-center text-center space-y-3 group">
                 <div className="w-10 h-10 rounded-full bg-white border-2 border-slate-200 text-slate-400 flex items-center justify-center font-black text-sm group-hover:border-slate-400 group-hover:text-slate-600 transition-all">3</div>
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-relaxed">Receba o Link<br/>do Formulário</p>
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-relaxed">Receba o Link<br />do Formulário</p>
               </div>
               <div className="relative z-10 flex flex-col items-center text-center space-y-3 group">
                 <div className="w-10 h-10 rounded-full bg-white border-2 border-slate-200 text-slate-400 flex items-center justify-center font-black text-sm group-hover:border-slate-400 group-hover:text-slate-600 transition-all">4</div>
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-relaxed">Preencha<br/>seu Perfil</p>
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-relaxed">Preencha<br />seu Perfil</p>
               </div>
               <div className="relative z-10 flex flex-col items-center text-center space-y-3 group">
-                <div className="w-10 h-10 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-black text-sm shadow-lg group-hover:scale-110 transition-transform">5</div>
-                <p className="text-[10px] font-black text-slate-950 uppercase tracking-wider leading-relaxed">Receba o Mapa<br/>em PDF</p>
+                <div className="w-10 h-10 rounded-full bg-brand-gradient text-white flex items-center justify-center font-black text-sm shadow-lg group-hover:scale-110 transition-transform">5</div>
+                <p className="text-[10px] font-black text-slate-950 uppercase tracking-wider leading-relaxed">Receba o Mapa<br />em PDF</p>
               </div>
             </div>
           </div>
@@ -627,7 +699,7 @@ export default function Home() {
       {/* 7. Eventos Section */}
       <section id="eventos" className="py-24 bg-slate-50 border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
-          
+
           <div className="space-y-3">
             <span className="text-xs font-black uppercase text-amber-600 tracking-wider">Agenda & Eventos</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight leading-none">Próximos Encontros</h2>
@@ -636,11 +708,10 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {events.map((event) => (
-              <div 
+              <div
                 key={event.id}
-                className={`bg-white border border-slate-100 rounded-3xl p-6 text-left flex flex-col justify-between shadow-premium transition-all hover:border-slate-300 ${
-                  event.is_featured ? "ring-2 ring-amber-500/20" : ""
-                }`}
+                className={`bg-white border border-slate-100 rounded-3xl p-6 text-left flex flex-col justify-between shadow-premium transition-all hover:border-slate-300 ${event.is_featured ? "ring-2 ring-amber-500/20" : ""
+                  }`}
               >
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
@@ -679,7 +750,7 @@ export default function Home() {
       {/* 8. Nova Seção: Conteúdo Gratuito (Youtube) */}
       <section className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
-          
+
           <div className="space-y-3">
             <span className="text-xs font-black uppercase text-amber-600 tracking-wider">Estudo e Edificação</span>
             <h2 className="text-3xl font-extrabold text-slate-950 tracking-tight leading-none">Últimas Ministrações</h2>
@@ -688,7 +759,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {youtubeVideos.map((video) => (
-              <div 
+              <div
                 key={video.id}
                 className="bg-slate-50 border border-slate-200/50 rounded-3xl p-5 flex flex-col justify-between text-left hover:border-slate-350 transition-colors shadow-sm"
               >
@@ -735,17 +806,17 @@ export default function Home() {
       {videoOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
           <div className="relative w-full max-w-4xl aspect-video bg-black rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-            <button 
+            <button
               onClick={() => setVideoOpen(false)}
               className="absolute top-4 right-4 z-10 p-2.5 bg-black/60 hover:bg-black text-white rounded-xl border border-white/10 cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
-            <iframe 
-              className="w-full h-full border-0" 
-              src={settings.youtube_video_url} 
-              title="Apresentação do Ministério" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            <iframe
+              className="w-full h-full border-0"
+              src={settings.youtube_video_url}
+              title="Apresentação do Ministério"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
           </div>
@@ -756,7 +827,7 @@ export default function Home() {
       {historyOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
           <div className="w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-2xl relative space-y-6 text-left">
-            <button 
+            <button
               onClick={() => setHistoryOpen(false)}
               className="absolute top-4 right-4 p-1 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-900 border-0 bg-transparent cursor-pointer"
             >
@@ -767,7 +838,7 @@ export default function Home() {
               <h3 className="text-xl font-black text-slate-950 uppercase tracking-tight leading-none">Apóstolo Ricardo Ribeiro</h3>
             </div>
             <p className="text-xs text-slate-650 font-medium leading-relaxed">
-              O Apóstolo Ricardo Ribeiro tem dedicado sua jornada de vida a restaurar o ensino bíblico do ministério profético no Brasil e no exterior. Com formação teológica e anos de atuação prática, ele lidera a Escola de Capacitação Profética (ECOP) e orienta milhares de cristãos a descobrirem, compreenderem e andarem ativamente no seu chamado profético de forma madura, séria e equilibrada. 
+              O Apóstolo Ricardo Ribeiro tem dedicado sua jornada de vida a restaurar o ensino bíblico do ministério profético no Brasil e no exterior. Com formação teológica e anos de atuação prática, ele lidera a Escola de Capacitação Profética (ECOP) e orienta milhares de cristãos a descobrirem, compreenderem e andarem ativamente no seu chamado profético de forma madura, séria e equilibrada.
               <br /><br />
               Através de seminários, materiais de estudo avançado e aconselhamento pessoal, o ministério visa destrinchar legalidades que retêm destinos espirituais, ativando dons e erguendo ministros consolidados nas verdades eternas.
             </p>
@@ -779,7 +850,7 @@ export default function Home() {
       {selectedBook && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
           <div className="w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-2xl relative space-y-6 text-left">
-            <button 
+            <button
               onClick={() => setSelectedBook(null)}
               className="absolute top-4 right-4 p-1 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-900 border-0 bg-transparent cursor-pointer"
             >
