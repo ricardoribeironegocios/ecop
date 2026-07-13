@@ -431,12 +431,8 @@ export default function EbooksPage() {
                       <p className="text-[11px] text-slate-500 font-medium leading-relaxed mt-0.5">Seus e-books no formato digital PDF serão enviados imediatamente pelo suporte.</p>
                     </div>
                   </div>
-                </div>
-              </div>
-
               </div>
             </div>
-
             {/* Painel Interativo de Fechamento */}
             <div className="bg-slate-900 text-white border border-slate-800 rounded-3xl p-6 shadow-lg text-center space-y-6 md:sticky md:top-24">
               <div className="space-y-1 border-b border-slate-800 pb-4 text-left">
