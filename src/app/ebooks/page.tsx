@@ -226,6 +226,8 @@ export default function EbooksPage() {
     );
   };
 
+  const selectedBooks = displayBooks.filter(book => selectedIds.includes(book.id));
+
   // Calculate pricing
   const finalPrice = selectedBooks.reduce((acc, book) => acc + book.numericPrice, 0);
 
@@ -433,7 +435,8 @@ export default function EbooksPage() {
                   </div>
               </div>
             </div>
-            {/* Painel Interativo de Fechamento */}
+          </div>
+          {/* Painel Interativo de Fechamento */}
             <div className="bg-slate-900 text-white border border-slate-800 rounded-3xl p-6 shadow-lg text-center space-y-6 md:sticky md:top-24">
               <div className="space-y-1 border-b border-slate-800 pb-4 text-left">
                 <h3 className="text-xs font-black uppercase text-amber-500 tracking-wider">Resumo do Pedido</h3>
