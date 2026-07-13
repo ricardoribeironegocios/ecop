@@ -264,9 +264,20 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
 
         // Load Books
         const { data: bD } = await supabase.from("mr_books").select("*").order("title", { ascending: true });
-        if (bD && bD.length >= 12) {
-          setBooks(bD);
-          localStorage.setItem("mr_books", JSON.stringify(bD));
+        if (bD) {
+          if (bD.length > 0) {
+            setBooks(bD);
+            localStorage.setItem("mr_books", JSON.stringify(bD));
+          } else {
+            // Seed Supabase with defaultBooks if database is empty
+            const { error: seedErr } = await supabase.from("mr_books").insert(defaultBooks);
+            if (!seedErr) {
+              setBooks(defaultBooks);
+              localStorage.setItem("mr_books", JSON.stringify(defaultBooks));
+            } else {
+              console.error("Failed to seed default books to Supabase:", seedErr);
+            }
+          }
         }
 
         // Load Events
@@ -386,12 +397,7 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
       if (storedBooks) {
         try { 
           const parsed = JSON.parse(storedBooks);
-          if (Array.isArray(parsed) && parsed.length < 12) {
-            setBooks(defaultBooks);
-            localStorage.setItem("mr_books", JSON.stringify(defaultBooks));
-          } else {
-            setBooks(parsed);
-          }
+          setBooks(parsed);
         } catch (e) {
           setBooks(defaultBooks);
           localStorage.setItem("mr_books", JSON.stringify(defaultBooks));
