@@ -529,7 +529,12 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
 
   const saveBooks = (updated: BookItem[]) => {
     setBooks(updated);
-    localStorage.setItem("mr_books", JSON.stringify(updated));
+    // Remove strings Base64 gigantes do localStorage para evitar QuotaExceededError (limite de 5MB)
+    const cleaned = updated.map((b) => ({
+      ...b,
+      cover_url: b.cover_url && b.cover_url.startsWith("data:") ? "" : b.cover_url,
+    }));
+    localStorage.setItem("mr_books", JSON.stringify(cleaned));
   };
 
   const updateBook = (id: string, updates: Partial<BookItem>) => {
@@ -566,7 +571,12 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
 
   const saveProducts = (updated: ProductItem[]) => {
     setProducts(updated);
-    localStorage.setItem("mr_products", JSON.stringify(updated));
+    // Remove strings Base64 gigantes do localStorage para evitar QuotaExceededError (limite de 5MB)
+    const cleaned = updated.map((p) => ({
+      ...p,
+      image_url: p.image_url && p.image_url.startsWith("data:") ? "" : p.image_url,
+    }));
+    localStorage.setItem("mr_products", JSON.stringify(cleaned));
   };
 
   const createProduct = (prodData: Omit<ProductItem, "id">) => {
