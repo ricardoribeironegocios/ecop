@@ -328,38 +328,44 @@ export default function BibliotecaCompletaPage() {
       {/* 3. Grid dos Livros Digitais */}
       <section className="py-12 bg-white border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-slate-100 pb-6">
+          <div className="flex flex-col gap-6 border-b border-slate-100 pb-6">
             <div className="text-left space-y-1">
               <h2 className="text-2xl font-extrabold tracking-tight text-slate-950 uppercase">Escolha seus Livros</h2>
               <p className="text-xs text-slate-500 font-medium">Selecione individualmente ou marque o combo completo para ganhar 50% de desconto.</p>
-              
-              {/* PONTO EXPLICATIVO INCLUÍDO SEM ALTERAR ESTRUTURA OU DESIGN */}
-              <div className="mt-4 text-xs sm:text-[13px] text-slate-600 leading-relaxed max-w-xl pt-2 font-medium">
-                <strong className="text-slate-900 block mb-1">🛒 Como comprar de forma fácil:</strong>
-                <ol className="list-decimal pl-4.5 space-y-1 text-slate-500">
-                  <li>Selecione os livros desejados abaixo clicando neles.</li>
-                  <li>Veja o valor atualizado no <strong className="text-slate-900 font-bold">Resumo do Pedido</strong> ao final da página.</li>
-                  <li>Faça o PIX e envie o comprovante pelo WhatsApp para receber seus e-books na hora.</li>
-                </ol>
-              </div>
             </div>
 
-            <button
-              onClick={handleSelectAll}
-              className="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs uppercase tracking-wider rounded-xl cursor-pointer transition-colors flex items-center gap-1.5"
-            >
-              {isComboActive ? (
-                <>
-                  <CheckSquare className="w-4 h-4 text-emerald-500" />
-                  <span>Desmarcar Todos</span>
-                </>
-              ) : (
-                <>
-                  <Square className="w-4 h-4" />
-                  <span>Selecionar Todos</span>
-                </>
-              )}
-            </button>
+            {/* PONTO EXPLICATIVO INCLUÍDO COM DESTAQUE, FUNDO E CONTRASTE */}
+            <div className="bg-slate-950 border border-slate-900 p-5 rounded-2xl text-xs sm:text-sm text-slate-350 leading-relaxed max-w-xl shadow-lg relative overflow-hidden text-left">
+              <div className="absolute right-0 top-0 w-24 h-24 bg-amber-500/5 rounded-full blur-xl pointer-events-none" />
+              <strong className="text-amber-500 text-[13px] font-black uppercase tracking-wider block mb-2">
+                🛒 Como comprar de forma fácil:
+              </strong>
+              <ol className="list-decimal pl-4.5 space-y-1.5 text-slate-300 font-semibold">
+                <li>Selecione os livros desejados abaixo clicando neles.</li>
+                <li>Veja o valor atualizado no <strong className="text-white font-black underline decoration-amber-500 underline-offset-2">Resumo do Pedido</strong> ao final da página.</li>
+                <li>Faça o PIX e envie o comprovante pelo WhatsApp para receber seus e-books na hora.</li>
+              </ol>
+            </div>
+
+            {/* BOTÃO SELECIONAR TODOS ABAIXO DA SEÇÃO EXPLICATIVA */}
+            <div className="flex justify-start">
+              <button
+                onClick={handleSelectAll}
+                className="px-4 py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs uppercase tracking-wider rounded-xl cursor-pointer transition-colors flex items-center gap-1.5"
+              >
+                {isComboActive ? (
+                  <>
+                    <CheckSquare className="w-4 h-4 text-emerald-500" />
+                    <span>Desmarcar Todos</span>
+                  </>
+                ) : (
+                  <>
+                    <Square className="w-4 h-4" />
+                    <span>Selecionar Todos</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
