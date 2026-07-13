@@ -289,8 +289,8 @@ export default function BibliotecaCompletaPage() {
       </section>
 
       {/* 2. Oferta Combo Card (Atrativo) */}
-      <section className="py-8 bg-slate-50 relative z-25 -mt-6">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-10 bg-white relative z-25">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 text-slate-955 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group border border-amber-450/40">
             <div className="absolute right-0 bottom-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -326,16 +326,16 @@ export default function BibliotecaCompletaPage() {
       </section>
 
       {/* 3. Grid dos Livros Digitais */}
-      <section className="py-12 bg-white border-b border-slate-100">
+      <section className="pb-16 pt-4 bg-white border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="flex flex-col gap-6 border-b border-slate-100 pb-6">
+          <div className="flex flex-col gap-5 border-b border-slate-100 pb-5">
             <div className="text-left space-y-1">
               <h2 className="text-2xl font-extrabold tracking-tight text-slate-950 uppercase">Escolha seus Livros</h2>
               <p className="text-xs text-slate-500 font-medium">Selecione individualmente ou marque o combo completo para ganhar 50% de desconto.</p>
             </div>
 
             {/* PONTO EXPLICATIVO INCLUÍDO COM DESTAQUE, FUNDO E CONTRASTE */}
-            <div className="bg-slate-950 border border-slate-900 p-5 rounded-2xl text-xs sm:text-sm text-slate-350 leading-relaxed max-w-xl shadow-lg relative overflow-hidden text-left">
+            <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl text-xs sm:text-sm text-slate-200 leading-relaxed max-w-xl shadow-lg relative overflow-hidden text-left">
               <div className="absolute right-0 top-0 w-24 h-24 bg-amber-500/5 rounded-full blur-xl pointer-events-none" />
               <strong className="text-amber-500 text-[13px] font-black uppercase tracking-wider block mb-2">
                 🛒 Como comprar de forma fácil:
@@ -348,7 +348,7 @@ export default function BibliotecaCompletaPage() {
             </div>
 
             {/* BOTÃO SELECIONAR TODOS ABAIXO DA SEÇÃO EXPLICATIVA */}
-            <div className="flex justify-start">
+            <div className="flex justify-start pt-1">
               <button
                 onClick={handleSelectAll}
                 className="px-4 py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs uppercase tracking-wider rounded-xl cursor-pointer transition-colors flex items-center gap-1.5"
