@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useDB } from "@/context/DBContext";
@@ -22,9 +23,13 @@ export default function Footer() {
           {/* Main Info */}
           <div className="md:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2 group">
-              <img
+              <Image
                 src="/logo-ecop-white.png"
                 alt="ECOP Logo"
+                width={120}
+                height={36}
+                loading="lazy"
+                decoding="async"
                 className="h-9 w-auto object-contain group-hover:scale-105 transition-transform"
               />
             </Link>
@@ -64,7 +69,7 @@ export default function Footer() {
               <Link href="/#cursos" className="hover:text-white transition-colors">ECOP</Link>
               <Link href="/#cursos" className="hover:text-white transition-colors">Cursos</Link>
               <Link href="/caravana-israel" className="hover:text-white transition-colors text-amber-500">Caravana Israel 🇮🇱</Link>
-              <Link href="/#biblioteca" className="hover:text-white transition-colors">Biblioteca</Link>
+              <Link href="/biblioteca" className="hover:text-white transition-colors">Biblioteca</Link>
               <Link href="/#mapa" className="hover:text-white transition-colors">Mapa Profético</Link>
               <Link href="/#eventos" className="hover:text-white transition-colors">Eventos</Link>
               <a 

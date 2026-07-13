@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
+import Image from "next/image";
 import { useDB, EventItem } from "@/context/DBContext";
 import Link from "next/link";
 import {
@@ -37,8 +38,8 @@ export default function Home() {
       tagline: "Paternidade espiritual para uma vida de direção e maturidade.",
       price: "",
       description: "Relacionamento direto e exclusivo com o apóstolo Ricardo através de grupo no whatsapp e ZOOM, para aconselhamento, acompanhamento dos meses e festas bíblicas.",
-      checkout_url: "https://sun.eduzz.com/ecop-capacitacao",
-      details_url: "https://wa.me/5521981116787?text=Olá! Gostaria de obter mais informações sobre a Mentoria e Paternidade Espiritual.",
+      checkout_url: "https://api.whatsapp.com/send/?phone=5521981116787&text=Ol%C3%A1%21+Gostaria+de+obter+mais+informa%C3%A7%C3%B5es+sobre+a+Mentoria+e+Paternidade+Espiritual.&type=phone_number&app_absent=0",
+      details_url: "",
       is_popular: true
     },
     {
@@ -139,12 +140,17 @@ export default function Home() {
         {/* Large Portrait Image positioned absolutely */}
         <div className="absolute right-0 bottom-0 top-0 w-full lg:w-[58%] xl:w-[54%] hidden lg:block z-0 pointer-events-none select-none">
           <div className="relative w-full h-full">
-            {/* Blending overlay to smooth the light/white fade into the dark background - restricted to left 55% */}
-            <div className="absolute left-0 top-0 bottom-0 w-[55%] bg-gradient-to-r from-slate-950 via-slate-950/85 to-transparent z-10" />
-            <img
-              src="/hero-portrait-v7.png"
+            {/* Smooth transition gradient restricted to the left 22% to avoid reaching the face */}
+            <div className="absolute left-0 top-0 bottom-0 w-[22%] bg-gradient-to-r from-slate-950 via-slate-950/50 to-transparent z-10" />
+            <Image
+              src="/hero-portrait-v7.webp"
               alt="Apóstolo Ricardo Ribeiro"
-              className="w-full h-full object-cover object-right-bottom drop-shadow-2xl opacity-100"
+              fill
+              style={{ objectFit: "cover", objectPosition: "right bottom" }}
+              priority
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
             />
           </div>
         </div>
@@ -291,10 +297,15 @@ export default function Home() {
             <div className="lg:col-span-5 hidden lg:block">
               {/* Elegant floating visual element */}
               <div className="w-full aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative">
-                <img
+                <Image
                   src="/jerusalem-modern.png"
                   alt="Jerusalém"
-                  className="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
+                  fill
+                  loading="lazy"
+                  decoding="async"
+                  sizes="(max-width: 1024px) 0px, 40vw"
+                  style={{ objectFit: "cover" }}
+                  className="grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
                 <span className="absolute bottom-4 left-6 text-[10px] font-black tracking-widest uppercase text-amber-500">Jerusalém Moderna</span>
@@ -361,7 +372,7 @@ export default function Home() {
                   )}
 
                   <div className="flex flex-col gap-2">
-                    {course.id !== "crs-2" && (
+                    {course.id !== "crs-2" && course.id !== "crs-1" && (
                       <a
                         href={course.details_url}
                         target="_blank"
@@ -382,7 +393,7 @@ export default function Home() {
                         : "bg-slate-900 hover:bg-slate-800 text-white shadow-sm"
                         }`}
                     >
-                      <span>{course.id === "crs-2" ? "Ver Cursos Disponíveis" : "Matricular-se"}</span>
+                      <span>{course.id === "crs-2" ? "Ver Cursos Disponíveis" : course.id === "crs-1" ? "Saiba Mais" : "Matricular-se"}</span>
                       <ArrowUpRight className="w-4 h-4" />
                     </a>
                   </div>
@@ -445,7 +456,7 @@ export default function Home() {
                         </div>
                       </div>
                     ) : (
-                      <img src={cover} alt={book.title} className="w-full h-full object-cover" />
+                      <img src={cover} alt={book.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                     );
                   })()}
                   <div className="absolute right-3 top-3 w-5 h-5 rounded-full bg-black/20 flex items-center justify-center">
@@ -888,7 +899,7 @@ export default function Home() {
                       <span className="text-[9px] font-black text-white font-serif uppercase tracking-tight leading-tight">{selectedBook.title}</span>
                     </div>
                   ) : (
-                    <img src={cover} alt={selectedBook.title} className="w-full h-full object-cover" />
+                    <img src={cover} alt={selectedBook.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   );
                 })()}
               </div>

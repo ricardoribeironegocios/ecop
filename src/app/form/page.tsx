@@ -20,28 +20,59 @@ function FormContent() {
   // Load order and corresponding form layout on mount
   useEffect(() => {
     if (!isLoading) {
-      const foundOrder = orders.find((o) => o.id === id);
-      if (foundOrder) {
-        setOrder(foundOrder);
+      const isDemo = !id || id.toLowerCase() === "demo";
+      
+      if (isDemo) {
+        // Modo de demonstração / visualização rápida
+        const urlPlan = searchParams.get("plan") === "premium" ? "premium" : "standard";
+        const dummyOrder: Order = {
+          id: "demo",
+          client_name: "Visitante de Teste",
+          client_phone: "(00) 99999-9999",
+          plan: urlPlan,
+          status: "formulario_pendente",
+          created_at: new Date().toISOString(),
+          due_date: new Date().toISOString(),
+          form_responses: {}
+        };
+        setOrder(dummyOrder);
         
-        // Find template by plan name
-        const foundTemplate = formTemplates.find((t) => t.id === foundOrder.plan);
+        const foundTemplate = formTemplates.find((t) => t.id === urlPlan);
         if (foundTemplate) {
           setTemplate(foundTemplate);
           
-          // Pre-populate fields if already partially answered
-          const initialAnswers = foundOrder.form_responses || {};
           const populated: Record<string, any> = {};
           foundTemplate.fields.forEach((field) => {
             if (field.active) {
-              populated[field.label] = initialAnswers[field.label] || "";
+              populated[field.label] = "";
             }
           });
           setAnswers(populated);
         }
+      } else {
+        const foundOrder = orders.find((o) => o.id === id);
+        if (foundOrder) {
+          setOrder(foundOrder);
+          
+          // Find template by plan name
+          const foundTemplate = formTemplates.find((t) => t.id === foundOrder.plan);
+          if (foundTemplate) {
+            setTemplate(foundTemplate);
+            
+            // Pre-populate fields if already partially answered
+            const initialAnswers = foundOrder.form_responses || {};
+            const populated: Record<string, any> = {};
+            foundTemplate.fields.forEach((field) => {
+              if (field.active) {
+                populated[field.label] = initialAnswers[field.label] || "";
+              }
+            });
+            setAnswers(populated);
+          }
+        }
       }
     }
-  }, [id, orders, formTemplates, isLoading]);
+  }, [id, orders, formTemplates, isLoading, searchParams]);
 
   const handleInputChange = (label: string, value: any) => {
     setAnswers((prev) => ({ ...prev, [label]: value }));
@@ -62,10 +93,12 @@ function FormContent() {
     }
 
     // Save form responses
-    updateOrder(order.id, {
-      form_responses: answers,
-      status: "em_producao"
-    });
+    if (order.id !== "demo") {
+      updateOrder(order.id, {
+        form_responses: answers,
+        status: "em_producao"
+      });
+    }
     setIsSubmitted(true);
     setErrorMsg("");
   };

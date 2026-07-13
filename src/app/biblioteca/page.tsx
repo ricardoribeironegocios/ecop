@@ -3,22 +3,22 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useDB } from "@/context/DBContext";
-import { 
-  BookOpen, 
-  Scale, 
-  Shield, 
-  Crown, 
-  Moon, 
-  Eye, 
-  Flame, 
-  User, 
-  Key, 
-  Calendar, 
-  Sparkles, 
-  Check, 
-  ArrowRight, 
-  MessageSquare, 
-  Info, 
+import {
+  BookOpen,
+  Scale,
+  Shield,
+  Crown,
+  Moon,
+  Eye,
+  Flame,
+  User,
+  Key,
+  Calendar,
+  Sparkles,
+  Check,
+  ArrowRight,
+  MessageSquare,
+  Info,
   Percent,
   CheckSquare,
   Square
@@ -160,7 +160,7 @@ export default function BibliotecaCompletaPage() {
     const numericPrice = getNumericPrice(b.price);
     const coverUrl = (b as any).cover_url || (b as any).coverColor || "";
     const desc = b.desc || "";
-    
+
     // Determine cover icon and gradient dynamically or by fallback mapping
     const defaultCoverGradients: Record<string, string> = {
       "bk-1": "from-slate-900 via-amber-950 to-slate-950",
@@ -221,7 +221,7 @@ export default function BibliotecaCompletaPage() {
   });
 
   const handleToggleSelect = (id: string) => {
-    setSelectedIds(prev => 
+    setSelectedIds(prev =>
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
     );
   };
@@ -236,7 +236,7 @@ export default function BibliotecaCompletaPage() {
 
   const isAllSelected = selectedIds.length === displayBooks.length;
   const selectedBooks = displayBooks.filter(book => selectedIds.includes(book.id));
-  
+
   // Calculate pricing
   const rawSubtotal = selectedBooks.reduce((acc, book) => acc + book.numericPrice, 0);
   const isComboActive = isAllSelected;
@@ -249,7 +249,7 @@ export default function BibliotecaCompletaPage() {
     if (isComboActive) {
       return `Olá! Quero o Pacote Completo com todos os ${displayBooks.length} e-books com o desconto de 50% por R$ 297. Por favor, envie o link do cartão para parcelar ou a chave PIX.`;
     }
-    
+
     if (selectedBooks.length === 0) {
       return `Olá! Gostaria de mais informações sobre os e-books do Apóstolo Ricardo Ribeiro.`;
     }
@@ -265,11 +265,11 @@ export default function BibliotecaCompletaPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans select-none text-slate-900">
-      
+
       {/* 1. Hero Section */}
       <section className="relative bg-slate-950 text-white py-16 sm:py-20 overflow-hidden border-b border-slate-900">
-        <div className="absolute inset-0 bg-cover bg-center opacity-5 bg-no-repeat" style={{ backgroundImage: "url('/hero-bg.png')" }} />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(15,23,42,0.85),#020617)] z-0" />
+        <div className="hidden sm:block absolute inset-0 bg-contain bg-right bg-no-repeat opacity-[0.95]" style={{ backgroundImage: "url('/biblioteca-banner.webp')" }} />
+        <div className="hidden sm:block absolute inset-0 z-0 pointer-events-none" style={{ background: "linear-gradient(to right, #020617 0%, #020617 30%, rgba(2,6,23,0.9) 45%, rgba(2,6,23,0) 58%)" }} />
         <div className="absolute left-1/2 -translate-x-1/2 bottom-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
@@ -278,11 +278,11 @@ export default function BibliotecaCompletaPage() {
             <span>Biblioteca Digital Completa</span>
           </span>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight uppercase max-w-4xl mx-auto">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight uppercase max-w-4xl mx-auto drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
             EBOOKS DO <span className="text-brand-gradient">APÓSTOLO RICARDO RIBEIRO</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-350 font-medium leading-relaxed max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
             Aprofunde seus conhecimentos bíblicos, ative seus dons de revelação e alinhe sua caminhada ao tempo profético com os materiais de guerra espiritual e teologia avançada.
           </p>
         </div>
@@ -293,14 +293,14 @@ export default function BibliotecaCompletaPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 text-slate-955 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group border border-amber-450/40">
             <div className="absolute right-0 bottom-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
-            
+
             <div className="space-y-3 relative z-10 text-center md:text-left">
               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-slate-950 text-amber-500 text-[9px] font-black uppercase tracking-wider rounded-md">
                 🔥 Mega Oportunidade
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black tracking-tight uppercase leading-none">PACOTE COM TODOS OS {displayBooks.length} EBOOKS</h2>
-              <p className="text-xs font-bold text-slate-905 max-w-lg leading-relaxed">
-                Garanta o acervo completo do Apóstolo Ricardo Ribeiro. Adquiridos individualmente, sairiam R$ 600 reais. Com o combo de uma só vez, leve com <strong className="font-extrabold text-slate-950">50% de DESCONTO</strong>!
+              <h2 className="text-2xl sm:text-3xl font-black tracking-tight uppercase leading-none text-white">PACOTE COM TODOS OS {displayBooks.length} EBOOKS</h2>
+              <p className="text-xs font-bold text-white/90 max-w-lg leading-relaxed">
+                Garanta o acervo completo do Apóstolo Ricardo Ribeiro. Adquiridos individualmente, sairiam R$ 600 reais. Com o combo de uma só vez, leve com <strong className="font-extrabold text-white">50% de DESCONTO</strong>!
               </p>
             </div>
 
@@ -310,14 +310,13 @@ export default function BibliotecaCompletaPage() {
                 <div className="text-3xl font-black text-amber-500 font-mono">12x R$ 30,72</div>
                 <span className="text-[9px] text-emerald-500 font-bold block uppercase tracking-wide">Ou R$ 297,00 à vista (PIX)</span>
               </div>
-              
-              <button 
+
+              <button
                 onClick={handleSelectAll}
-                className={`w-full py-3 px-6 rounded-xl font-black text-xs uppercase tracking-wider transition-all duration-350 cursor-pointer ${
-                  isComboActive 
-                    ? "bg-emerald-600 hover:bg-emerald-500 text-white" 
-                    : "bg-brand-gradient text-white hover:scale-[1.03]"
-                }`}
+                className={`w-full py-3 px-6 rounded-xl font-black text-xs uppercase tracking-wider transition-all duration-350 cursor-pointer ${isComboActive
+                  ? "bg-emerald-600 hover:bg-emerald-500 text-white"
+                  : "bg-brand-gradient text-white hover:scale-[1.03]"
+                  }`}
               >
                 {isComboActive ? "✓ Pacote Selecionado" : "Selecionar Todos (50% Off)"}
               </button>
@@ -334,7 +333,7 @@ export default function BibliotecaCompletaPage() {
               <h2 className="text-2xl font-extrabold tracking-tight text-slate-950 uppercase">Escolha seus Livros</h2>
               <p className="text-xs text-slate-500 font-medium">Selecione individualmente ou marque o combo completo para ganhar 50% de desconto.</p>
             </div>
-            
+
             <button
               onClick={handleSelectAll}
               className="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs uppercase tracking-wider rounded-xl cursor-pointer transition-colors flex items-center gap-1.5"
@@ -357,16 +356,15 @@ export default function BibliotecaCompletaPage() {
             {displayBooks.map((book) => {
               const IconComponent = iconMap[book.iconName] || BookOpen;
               const isSelected = selectedIds.includes(book.id);
-              
+
               return (
-                <div 
+                <div
                   key={book.id}
                   onClick={() => handleToggleSelect(book.id)}
-                  className={`bg-slate-50 border rounded-2xl p-4 flex flex-col justify-between cursor-pointer transition-all duration-300 group hover:shadow-md ${
-                    isSelected 
-                      ? "border-amber-500/80 bg-amber-500/[0.02] shadow-sm shadow-amber-500/5" 
-                      : "border-slate-200/60 hover:border-slate-350"
-                  }`}
+                  className={`bg-slate-50 border rounded-2xl p-4 flex flex-col justify-between cursor-pointer transition-all duration-300 group hover:shadow-md ${isSelected
+                    ? "border-amber-500/80 bg-amber-500/[0.02] shadow-sm shadow-amber-500/5"
+                    : "border-slate-200/60 hover:border-slate-350"
+                    }`}
                 >
                   <div className="space-y-4">
                     {/* Realistic Book Mockup Cover */}
@@ -374,16 +372,15 @@ export default function BibliotecaCompletaPage() {
                       {book.coverUrl.startsWith("from-") ? (
                         <div className={`absolute inset-0 bg-gradient-to-br ${book.coverGradient} opacity-95`} />
                       ) : (
-                        <img src={book.coverUrl} alt={book.title} className="absolute inset-0 w-full h-full object-cover opacity-95" />
+                        <img src={book.coverUrl} alt={book.title} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover opacity-95" />
                       )}
-                      
+
                       {/* Book spine simulation overlay */}
                       <div className="absolute top-0 left-0 bottom-0 w-2.5 bg-gradient-to-r from-black/30 via-white/10 to-transparent z-10" />
-                      
+
                       <div className="relative z-10 flex justify-end items-start">
-                        <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${
-                          isSelected ? "bg-amber-500 border-amber-500 text-slate-950" : "bg-black/40 border-white/20 text-white"
-                        }`}>
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${isSelected ? "bg-amber-500 border-amber-500 text-slate-950" : "bg-black/40 border-white/20 text-white"
+                          }`}>
                           {isSelected && <Check className="w-3.5 h-3.5 stroke-[3.5]" />}
                         </div>
                       </div>
@@ -415,11 +412,10 @@ export default function BibliotecaCompletaPage() {
                   <div className="pt-3 border-t border-slate-100 mt-4">
                     <button
                       type="button"
-                      className={`w-full py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-colors cursor-pointer border-0 ${
-                        isSelected 
-                          ? "bg-brand-gradient text-white" 
-                          : "bg-slate-100 hover:bg-slate-200 text-slate-700"
-                      }`}
+                      className={`w-full py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-colors cursor-pointer border-0 ${isSelected
+                        ? "bg-brand-gradient text-white"
+                        : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                        }`}
                     >
                       {isSelected ? "Selecionado" : "Selecionar E-book"}
                     </button>
@@ -434,7 +430,7 @@ export default function BibliotecaCompletaPage() {
       {/* 4. Como Adquirir / Painel de Compra Interativo */}
       <section className="py-16 bg-slate-50 border-b border-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          
+
           <div className="text-center space-y-3">
             <span className="text-xs font-black uppercase text-amber-600 tracking-wider">Passo a Passo</span>
             <h2 className="text-3xl font-extrabold text-slate-955 tracking-tight uppercase leading-none">Como adquirir agora mesmo?</h2>
@@ -442,16 +438,16 @@ export default function BibliotecaCompletaPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            
+
             {/* Bloco de Instruções */}
             <div className="space-y-6">
-              
+
               <div className="bg-white border border-slate-200/60 rounded-3xl p-6 shadow-sm space-y-6">
                 <h3 className="text-sm font-black text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-3 flex items-center gap-2">
                   <Info className="w-4 h-4 text-amber-500" />
                   <span>Método PIX Direto</span>
                 </h3>
-                
+
                 <div className="space-y-4">
                   <div className="flex gap-4">
                     <div className="w-7 h-7 bg-amber-500/10 text-amber-600 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
@@ -536,7 +532,7 @@ export default function BibliotecaCompletaPage() {
 
               {/* Linha de Totais */}
               <div className="border-t border-slate-800 pt-4 space-y-3">
-                
+
                 {isComboActive && (
                   <div className="flex justify-between text-xs text-emerald-500 font-bold">
                     <span>Desconto Combo (50% Off)</span>
@@ -566,13 +562,12 @@ export default function BibliotecaCompletaPage() {
                 <button
                   onClick={handleSendWhatsApp}
                   disabled={selectedIds.length === 0}
-                  className={`w-full py-4.5 rounded-xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 border-0 transition-all duration-300 ${
-                    selectedIds.length === 0 
-                      ? "bg-slate-800 text-slate-500 cursor-not-allowed" 
-                      : isComboActive 
-                        ? "bg-brand-gradient text-white hover:scale-[1.03]" 
-                        : "bg-emerald-600 hover:bg-emerald-500 text-white hover:scale-[1.03]"
-                  }`}
+                  className={`w-full py-4.5 rounded-xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 border-0 transition-all duration-300 ${selectedIds.length === 0
+                    ? "bg-slate-800 text-slate-500 cursor-not-allowed"
+                    : isComboActive
+                      ? "bg-brand-gradient text-white hover:scale-[1.03]"
+                      : "bg-emerald-600 hover:bg-emerald-500 text-white hover:scale-[1.03]"
+                    }`}
                 >
                   <MessageSquare className={`w-4.5 h-4.5 ${isComboActive ? "fill-white stroke-none" : "fill-white stroke-none"}`} />
                   <span>{isComboActive ? "Solicitar Link do Cartão" : "Comprar via WhatsApp"}</span>

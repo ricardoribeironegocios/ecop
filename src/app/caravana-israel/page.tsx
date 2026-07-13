@@ -83,15 +83,31 @@ export default function CaravanaIsraelPage() {
     <div className="font-sans antialiased bg-slate-50 text-slate-900 select-none">
 
       {/* 1. Hero Section */}
-      <section className="relative min-h-[90vh] md:min-h-[105vh] bg-slate-950 flex flex-col justify-start overflow-hidden">
+      <section className="relative min-h-[90vh] md:min-h-[105vh] bg-black flex flex-col justify-start overflow-hidden">
+        {/* Desktop background (visible md and up) */}
         <div
-          className="absolute inset-0 bg-cover bg-[center_bottom] opacity-100 z-0"
+          className="absolute inset-0 bg-cover bg-[center_bottom] opacity-100 z-0 hidden md:block"
           style={{ backgroundImage: "url('/caravana-israel-hero.jpg')" }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-36 z-10 w-full flex justify-center lg:justify-start">
+        {/* Mobile background behind the glassmorphism frame (visible on mobile only) */}
+        <div
+          className="absolute inset-x-0 top-0 bg-cover bg-center opacity-100 z-0 block md:hidden"
+          style={{ backgroundImage: "url('/jerusalem-sunset-mobile.webp')", height: "calc(100% - 370px)" }}
+        />
+
+        {/* Mobile image (visible on small screens) */}
+        <div
+          className="absolute inset-x-0 bottom-0 bg-cover bg-[position:78%_top] block md:hidden z-0"
+          style={{ backgroundImage: "url('/caravana-israel-hero.jpg')", height: "400px" }}
+        />
+
+        {/* Seamless blur transition overlay between the two mobile images */}
+        <div className="absolute inset-x-0 bottom-[350px] h-16 backdrop-blur-md bg-black/10 block md:hidden z-5 pointer-events-none" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6 z-10 w-full flex justify-center lg:justify-start">
           {/* Glassmorphism Frame Box */}
-          <div className="bg-transparent border border-slate-900/20 backdrop-blur-md rounded-3xl p-8 sm:p-10 max-w-xl w-full text-left space-y-6 shadow-2xl">
+          <div className="bg-transparent border-0 backdrop-blur-md rounded-3xl p-8 sm:p-10 max-w-xl w-full text-left space-y-6 shadow-2xl bg-white/30">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-700 rounded-full text-[10px] font-bold uppercase tracking-wider">
               <Plane className="w-3.5 h-3.5 text-amber-600" />
               <span>Viagem de Destino</span>

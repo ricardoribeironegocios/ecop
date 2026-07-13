@@ -18,7 +18,9 @@ import {
   FileText,
   TrendingUp,
   X,
-  ExternalLink
+  ExternalLink,
+  Copy,
+  Check
 } from "lucide-react";
 
 export default function AdminDashboard() {
@@ -31,6 +33,15 @@ export default function AdminDashboard() {
   const [newOrderForm, setNewOrderForm] = useState({ client_name: "", client_phone: "", plan: "standard" as "standard" | "premium" });
   const [pdfInputUrl, setPdfInputUrl] = useState("");
   const [isMaximized, setIsMaximized] = useState(false);
+  const [copiedOrderId, setCopiedOrderId] = useState<string | null>(null);
+
+  const handleCopyFormLink = (order: Order) => {
+    const link = `${window.location.origin}/form?id=${order.id}`;
+    navigator.clipboard.writeText(link).then(() => {
+      setCopiedOrderId(order.id);
+      setTimeout(() => setCopiedOrderId(null), 2000);
+    });
+  };
 
   // Helpers: Calculate Traffic Light Status
   const getTrafficLight = (order: Order) => {
@@ -345,7 +356,30 @@ export default function AdminDashboard() {
               <div className="space-y-1.5">
                 <span className="text-[9px] font-black text-amber-500 uppercase tracking-widest block font-sans">Ficha do Cliente</span>
                 <h3 className="text-lg font-black text-white">{selectedOrder.client_name}</h3>
-                <p className="text-xs text-slate-400 font-semibold">{selectedOrder.client_phone}</p>
+                <div className="flex items-center gap-3 mt-1">
+                  <p className="text-xs text-slate-400 font-semibold">{selectedOrder.client_phone}</p>
+                  <button
+                    onClick={() => handleCopyFormLink(selectedOrder)}
+                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider cursor-pointer border transition-colors ${
+                      copiedOrderId === selectedOrder.id
+                        ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-450"
+                        : "bg-slate-950 border-slate-800 text-amber-500 hover:text-amber-400 hover:bg-slate-900"
+                    }`}
+                    title="Copiar link do formulário deste cliente"
+                  >
+                    {copiedOrderId === selectedOrder.id ? (
+                      <>
+                        <Check className="w-3 h-3 text-emerald-450" />
+                        <span>Copiado!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3 h-3 text-amber-500" />
+                        <span>Copiar Link</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
 
               {/* Status workflow selector */}

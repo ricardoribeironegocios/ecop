@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Sparkles, BookOpen, Compass, Calendar, ShieldCheck } from "lucide-react";
@@ -22,7 +23,7 @@ export default function Header() {
     { label: "Início", href: "/#home", icon: <Sparkles className="w-3.5 h-3.5" /> },
     { label: "Cursos Online", href: "/cursos-online", icon: <BookOpen className="w-3.5 h-3.5" /> },
     { label: "Caravana", href: "/caravana-israel", icon: <Compass className="w-3.5 h-3.5" /> },
-    { label: "Biblioteca", href: "/#biblioteca", icon: <Compass className="w-3.5 h-3.5" /> },
+    { label: "Biblioteca", href: "/biblioteca", icon: <Compass className="w-3.5 h-3.5" /> },
     { label: "Agenda", href: "/#eventos", icon: <Calendar className="w-3.5 h-3.5" /> }
   ];
 
@@ -41,10 +42,15 @@ export default function Header() {
           
           {/* Logo / Branding */}
           <Link href="/" className="flex items-center gap-2 group">
-            <img
+            <Image
               src="/logo-ecop.png"
               alt="ECOP Logo"
-              className="h-10 w-auto object-contain group-hover:scale-105 transition-transform"
+              width={160}
+              height={56}
+              priority
+              fetchPriority="high"
+              decoding="async"
+              className="h-14 w-auto object-contain group-hover:scale-105 transition-transform"
             />
           </Link>
 

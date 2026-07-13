@@ -15,7 +15,9 @@ import {
   Sparkles,
   ToggleLeft,
   ToggleRight,
-  ListPlus
+  ListPlus,
+  Copy,
+  Check
 } from "lucide-react";
 
 export default function FormsBuilderPage() {
@@ -26,6 +28,16 @@ export default function FormsBuilderPage() {
   const [fields, setFields] = useState<FormField[]>([]);
   const [isAdding, setIsAdding] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopyLink = () => {
+    const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
+    const link = `${baseUrl}/form`;
+    navigator.clipboard.writeText(link).then(() => {
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    });
+  };
 
   // New field Form State
   const [newFieldForm, setNewFieldForm] = useState({
@@ -124,6 +136,23 @@ export default function FormsBuilderPage() {
         </div>
         
         <div className="flex gap-2.5 shrink-0 w-full sm:w-auto">
+          {/* Copy Form Link */}
+          <button
+            onClick={handleCopyLink}
+            title="Copiar link público do formulário"
+            className={`w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 border cursor-pointer transition-all ${
+              isCopied
+                ? "bg-emerald-500/15 border-emerald-700/40 text-emerald-400"
+                : "bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white"
+            }`}
+          >
+            {isCopied ? (
+              <><Check className="w-4 h-4" /><span>Link Copiado!</span></>
+            ) : (
+              <><Copy className="w-4 h-4" /><span>Copiar Link</span></>
+            )}
+          </button>
+
           <button
             onClick={handleSaveChanges}
             className="w-full sm:w-auto px-5 py-2.5 bg-amber-500 hover:bg-amber-455 text-slate-955 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 border-0 shadow-md cursor-pointer transition-colors"
