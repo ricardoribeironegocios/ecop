@@ -91,7 +91,7 @@ export default function AdminSettingsPage() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Validate file size (limit base64 size to prevent localStorage overflow, recommended under 1.5MB)
+      // Validate file size (under 1.5MB as recommendation, but we will compress anyway)
       if (file.size > 1.5 * 1024 * 1024) {
         alert("A imagem da capa é muito grande. Escolha uma imagem de até 1.5 MB.");
         if (fileInputRef.current) fileInputRef.current.value = "";
@@ -99,8 +99,43 @@ export default function AdminSettingsPage() {
       }
 
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setBookForm(prev => ({ ...prev, cover_url: reader.result as string }));
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target?.result as string;
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const MAX_WIDTH = 800;
+          const MAX_HEIGHT = 800;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height = Math.round((height * MAX_WIDTH) / width);
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width = Math.round((width * MAX_HEIGHT) / height);
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx?.drawImage(img, 0, 0, width, height);
+
+          // Convert to JPEG with 75% quality to make it very light (around 50KB)
+          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.75);
+          setBookForm(prev => ({ ...prev, cover_url: compressedBase64 }));
+        };
+        img.onerror = () => {
+          alert("Erro ao processar imagem.");
+        };
+      };
+      reader.onerror = () => {
+        alert("Erro ao ler arquivo.");
       };
       reader.readAsDataURL(file);
     }
