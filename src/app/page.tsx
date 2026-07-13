@@ -143,7 +143,7 @@ export default function Home() {
             {/* Smooth transition gradient restricted to the left 22% to avoid reaching the face */}
             <div className="absolute left-0 top-0 bottom-0 w-[22%] bg-gradient-to-r from-slate-950 via-slate-950/50 to-transparent z-10" />
             <Image
-              src="/hero-portrait-v7.webp"
+              src="/hero-portrait-v8.webp"
               alt="Apóstolo Ricardo Ribeiro"
               fill
               style={{ objectFit: "cover", objectPosition: "right bottom" }}
