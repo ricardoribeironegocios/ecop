@@ -332,6 +332,16 @@ export default function BibliotecaCompletaPage() {
             <div className="text-left space-y-1">
               <h2 className="text-2xl font-extrabold tracking-tight text-slate-950 uppercase">Escolha seus Livros</h2>
               <p className="text-xs text-slate-500 font-medium">Selecione individualmente ou marque o combo completo para ganhar 50% de desconto.</p>
+              
+              {/* PONTO EXPLICATIVO INCLUÍDO SEM ALTERAR ESTRUTURA OU DESIGN */}
+              <div className="mt-4 text-xs sm:text-[13px] text-slate-600 leading-relaxed max-w-xl pt-2 font-medium">
+                <strong className="text-slate-900 block mb-1">🛒 Como comprar de forma fácil:</strong>
+                <ol className="list-decimal pl-4.5 space-y-1 text-slate-500">
+                  <li>Selecione os livros desejados abaixo clicando neles.</li>
+                  <li>Veja o valor atualizado no <strong className="text-slate-900 font-bold">Resumo do Pedido</strong> ao final da página.</li>
+                  <li>Faça o PIX e envie o comprovante pelo WhatsApp para receber seus e-books na hora.</li>
+                </ol>
+              </div>
             </div>
 
             <button
