@@ -138,7 +138,7 @@ const EBOOKS_DATA = [
   }
 ];
 
-export default function BibliotecaCompletaPage() {
+export default function EbooksPage() {
   const { books } = useDB();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const phone = "5521981116787";
@@ -226,36 +226,18 @@ export default function BibliotecaCompletaPage() {
     );
   };
 
-  const handleSelectAll = () => {
-    if (selectedIds.length === displayBooks.length) {
-      setSelectedIds([]);
-    } else {
-      setSelectedIds(displayBooks.map(book => book.id));
-    }
-  };
-
-  const isAllSelected = selectedIds.length === displayBooks.length;
-  const selectedBooks = displayBooks.filter(book => selectedIds.includes(book.id));
-
   // Calculate pricing
-  const rawSubtotal = selectedBooks.reduce((acc, book) => acc + book.numericPrice, 0);
-  const isComboActive = isAllSelected;
-  const finalPrice = isComboActive ? 297.00 : rawSubtotal;
-  const originalFullPrice = displayBooks.reduce((acc, book) => acc + book.numericPrice, 0);
-  const discountAmount = isComboActive ? originalFullPrice - 297.00 : 0;
+  const finalPrice = selectedBooks.reduce((acc, book) => acc + book.numericPrice, 0);
 
   // WhatsApp Message Generator
   const getWhatsAppMessage = () => {
-    if (isComboActive) {
-      return `Olá! Quero o Pacote Completo com todos os ${displayBooks.length} e-books com o desconto de 50% por R$ 297. Por favor, envie o link do cartão para parcelar ou a chave PIX.`;
-    }
 
     if (selectedBooks.length === 0) {
       return `Olá! Gostaria de mais informações sobre os e-books do Apóstolo Ricardo Ribeiro.`;
     }
 
     const booksList = selectedBooks.map((b, idx) => `${idx + 1}. E-book: ${b.title}`).join("\n");
-    return `Olá! Escolhi os seguintes e-books da biblioteca:\n\n${booksList}\n\nTotal: R$ ${finalPrice.toFixed(2)}. Gostaria de solicitar os dados de pagamento (PIX ou Cartão).`;
+    return `Olá! Escolhi os seguintes e-books:\n\n${booksList}\n\nTotal: R$ ${finalPrice.toFixed(2)}. Gostaria de solicitar os dados de pagamento (PIX ou Cartão).`;
   };
 
   const handleSendWhatsApp = () => {
@@ -275,7 +257,7 @@ export default function BibliotecaCompletaPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-500 rounded-full text-[10px] font-black uppercase tracking-widest transition-transform duration-300 hover:scale-105">
             <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
-            <span>Biblioteca Digital Completa</span>
+            <span>Coleção de E-books</span>
           </span>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight uppercase max-w-4xl mx-auto drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
@@ -288,50 +270,13 @@ export default function BibliotecaCompletaPage() {
         </div>
       </section>
 
-      {/* 2. Oferta Combo Card (Atrativo) */}
-      <section className="py-10 bg-white relative z-25">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 text-slate-955 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group border border-amber-450/40">
-            <div className="absolute right-0 bottom-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="space-y-3 relative z-10 text-center md:text-left">
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-slate-950 text-amber-500 text-[9px] font-black uppercase tracking-wider rounded-md">
-                🔥 Mega Oportunidade
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-black tracking-tight uppercase leading-none text-white">PACOTE COM TODOS OS {displayBooks.length} EBOOKS</h2>
-              <p className="text-xs font-bold text-white/90 max-w-lg leading-relaxed">
-                Garanta o acervo completo do Apóstolo Ricardo Ribeiro. Adquiridos individualmente, sairiam R$ 600 reais. Com o combo de uma só vez, leve com <strong className="font-extrabold text-white">50% de DESCONTO</strong>!
-              </p>
-            </div>
-
-            <div className="flex flex-col items-center shrink-0 w-full md:w-auto bg-slate-950 text-white p-6 rounded-2xl border border-white/10 shadow-lg text-center gap-4 relative z-10">
-              <div className="space-y-1">
-                <span className="text-[10px] text-slate-400 font-bold line-through block font-mono">De R$ 600,00 por apenas:</span>
-                <div className="text-3xl font-black text-amber-500 font-mono">12x R$ 30,72</div>
-                <span className="text-[9px] text-emerald-500 font-bold block uppercase tracking-wide">Ou R$ 297,00 à vista (PIX)</span>
-              </div>
-
-              <button
-                onClick={handleSelectAll}
-                className={`w-full py-3 px-6 rounded-xl font-black text-xs uppercase tracking-wider transition-all duration-350 cursor-pointer ${isComboActive
-                  ? "bg-emerald-600 hover:bg-emerald-500 text-white"
-                  : "bg-brand-gradient text-white hover:scale-[1.03]"
-                  }`}
-              >
-                {isComboActive ? "✓ Pacote Selecionado" : "Selecionar Todos (50% Off)"}
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 3. Grid dos Livros Digitais */}
       <section className="pb-16 pt-4 bg-white border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="flex flex-col gap-5 border-b border-slate-100 pb-5">
             <div className="text-left space-y-1">
               <h2 className="text-2xl font-extrabold tracking-tight text-slate-950 uppercase">Escolha seus Livros</h2>
-              <p className="text-xs text-slate-500 font-medium">Selecione individualmente ou marque o combo completo para ganhar 50% de desconto.</p>
+              <p className="text-xs text-slate-500 font-medium">Selecione os e-books que você deseja adquirir.</p>
             </div>
 
             {/* PONTO EXPLICATIVO INCLUÍDO COM DESTAQUE, FUNDO E CONTRASTE */}
@@ -345,26 +290,6 @@ export default function BibliotecaCompletaPage() {
                 <li>Veja o valor atualizado no <strong className="text-white font-black underline decoration-amber-500 underline-offset-2">Resumo do Pedido</strong> ao final da página.</li>
                 <li>Faça o PIX e envie o comprovante pelo WhatsApp para receber seus e-books na hora.</li>
               </ol>
-            </div>
-
-            {/* BOTÃO SELECIONAR TODOS ABAIXO DA SEÇÃO EXPLICATIVA */}
-            <div className="flex justify-start pt-1">
-              <button
-                onClick={handleSelectAll}
-                className="px-4 py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs uppercase tracking-wider rounded-xl cursor-pointer transition-colors flex items-center gap-1.5"
-              >
-                {isComboActive ? (
-                  <>
-                    <CheckSquare className="w-4 h-4 text-emerald-500" />
-                    <span>Desmarcar Todos</span>
-                  </>
-                ) : (
-                  <>
-                    <Square className="w-4 h-4" />
-                    <span>Selecionar Todos</span>
-                  </>
-                )}
-              </button>
             </div>
           </div>
 
@@ -509,27 +434,14 @@ export default function BibliotecaCompletaPage() {
                 </div>
               </div>
 
-              {/* Bloco de Parcelamento e Economia */}
-              <div className="bg-amber-500/5 border border-amber-500/20 rounded-3xl p-6 space-y-4 text-left">
-                <div className="flex items-center gap-2 text-amber-600 font-black text-xs uppercase tracking-wider">
-                  <Percent className="w-4 h-4 text-amber-500" />
-                  <span>Parcelamento e Desconto</span>
-                </div>
-                <p className="text-xs text-slate-600 font-bold leading-relaxed">
-                  Adquirindo o pacote completo de {displayBooks.length} e-books de uma só vez, além de receber o desconto de 50% (R$ 297,00), você tem a opção de <strong className="font-extrabold text-slate-900">parcelar em até 12x no cartão de crédito</strong>!
-                </p>
-                <div className="text-[10px] text-slate-400 font-medium">
-                  *Para parcelamento no cartão, clique no botão e solicite o link de checkout do cartão ao nosso suporte.
-                </div>
               </div>
-
             </div>
 
             {/* Painel Interativo de Fechamento */}
             <div className="bg-slate-900 text-white border border-slate-800 rounded-3xl p-6 shadow-lg text-center space-y-6 md:sticky md:top-24">
               <div className="space-y-1 border-b border-slate-800 pb-4 text-left">
                 <h3 className="text-xs font-black uppercase text-amber-500 tracking-wider">Resumo do Pedido</h3>
-                <p className="text-[10px] text-slate-400 font-medium">Seus e-books selecionados e descontos aplicados.</p>
+                <p className="text-[10px] text-slate-400 font-medium">Seus e-books selecionados.</p>
               </div>
 
               {/* Lista compacta de e-books selecionados */}
@@ -548,29 +460,12 @@ export default function BibliotecaCompletaPage() {
 
               {/* Linha de Totais */}
               <div className="border-t border-slate-800 pt-4 space-y-3">
-
-                {isComboActive && (
-                  <div className="flex justify-between text-xs text-emerald-500 font-bold">
-                    <span>Desconto Combo (50% Off)</span>
-                    <span className="font-mono">- R$ {discountAmount.toFixed(2)}</span>
-                  </div>
-                )}
-
                 <div className="flex justify-between items-end">
                   <span className="text-xs uppercase font-black text-slate-400">Total a Pagar</span>
                   <div className="text-right">
-                    {isComboActive ? (
-                      <div className="space-y-0.5 font-mono">
-                        <span className="text-[10px] text-slate-400 line-through block">R$ {originalFullPrice.toFixed(2)}</span>
-                        <span className="text-2xl font-black text-amber-500 block">R$ 297,00</span>
-                        <span className="text-[9px] text-slate-400 font-bold block uppercase tracking-wide">Ou 12x de R$ 30,72 no cartão</span>
-                      </div>
-                    ) : (
-                      <span className="text-2xl font-black text-white font-mono">R$ {finalPrice.toFixed(2)}</span>
-                    )}
+                    <span className="text-2xl font-black text-white font-mono">R$ {finalPrice.toFixed(2)}</span>
                   </div>
                 </div>
-
               </div>
 
               {/* Botões de Ação */}
@@ -580,23 +475,12 @@ export default function BibliotecaCompletaPage() {
                   disabled={selectedIds.length === 0}
                   className={`w-full py-4.5 rounded-xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 border-0 transition-all duration-300 ${selectedIds.length === 0
                     ? "bg-slate-800 text-slate-500 cursor-not-allowed"
-                    : isComboActive
-                      ? "bg-brand-gradient text-white hover:scale-[1.03]"
-                      : "bg-emerald-600 hover:bg-emerald-500 text-white hover:scale-[1.03]"
+                    : "bg-emerald-600 hover:bg-emerald-500 text-white hover:scale-[1.03]"
                     }`}
                 >
-                  <MessageSquare className={`w-4.5 h-4.5 ${isComboActive ? "fill-white stroke-none" : "fill-white stroke-none"}`} />
-                  <span>{isComboActive ? "Solicitar Link do Cartão" : "Comprar via WhatsApp"}</span>
+                  <MessageSquare className="w-4.5 h-4.5 fill-white stroke-none" />
+                  <span>Comprar via WhatsApp</span>
                 </button>
-
-                {selectedIds.length > 0 && !isComboActive && (
-                  <button
-                    onClick={handleSelectAll}
-                    className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-xl text-[10px] font-black uppercase tracking-wider border border-slate-900 cursor-pointer"
-                  >
-                    Ativar Combo {displayBooks.length} E-books (50% Off)
-                  </button>
-                )}
               </div>
 
               <span className="text-[9px] text-slate-400 font-bold block">

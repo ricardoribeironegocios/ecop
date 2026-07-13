@@ -405,15 +405,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. Nova Seção: Biblioteca Profética (Slider/Carousel) */}
-      <section id="biblioteca" className="py-24 bg-white border-b border-slate-100">
+      {/* 5. Nova Seção: E-books (Slider/Carousel) */}
+      <section id="ebooks" className="py-24 bg-white border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
 
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="text-left space-y-2">
               <span className="text-xs font-black uppercase text-amber-600 tracking-wider block">Estudo Avançado</span>
-              <h2 className="text-3xl font-extrabold text-slate-950 tracking-tight">Biblioteca Profética</h2>
-              <p className="text-xs text-slate-500 font-bold">Aprofunde seu conhecimento com os livros digitais do Apóstolo Ricardo Ribeiro.</p>
+              <h2 className="text-3xl font-extrabold text-slate-950 tracking-tight">E-books</h2>
+              <p className="text-xs text-slate-500 font-bold">Aprofunde seu conhecimento com os e-books do Apóstolo Ricardo Ribeiro.</p>
             </div>
 
             {/* Carousel navigation buttons */}
@@ -496,10 +496,10 @@ export default function Home() {
 
           <div className="pt-4">
             <Link
-              href="/biblioteca"
+              href="/ebooks"
               className="inline-flex items-center gap-2 px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-black text-xs rounded-xl uppercase tracking-wider cursor-pointer shadow-md hover:scale-[1.02] active:scale-98 transition-all border-0"
             >
-              <span>Ver Biblioteca Completa</span>
+              <span>Ver todos os E-books</span>
               <ArrowRight className="w-4 h-4 text-amber-500 animate-pulse" />
             </Link>
           </div>

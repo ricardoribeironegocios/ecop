@@ -69,7 +69,7 @@ export default function Footer() {
               <Link href="/#cursos" className="hover:text-white transition-colors">ECOP</Link>
               <Link href="/#cursos" className="hover:text-white transition-colors">Cursos</Link>
               <Link href="/caravana-israel" className="hover:text-white transition-colors text-amber-500">Caravana Israel 🇮🇱</Link>
-              <Link href="/biblioteca" className="hover:text-white transition-colors">Biblioteca</Link>
+              <Link href="/ebooks" className="hover:text-white transition-colors">E-books</Link>
               <Link href="/#mapa" className="hover:text-white transition-colors">Mapa Profético</Link>
               <Link href="/#eventos" className="hover:text-white transition-colors">Eventos</Link>
               <a 
