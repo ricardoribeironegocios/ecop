@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import { useDB, EventItem } from "@/context/DBContext";
+import { useDB, EventItem, ProductItem } from "@/context/DBContext";
 import Link from "next/link";
 import {
   Play,
@@ -21,7 +21,8 @@ import {
   ArrowUpRight,
   ChevronLeft,
   Book,
-  BookOpenCheck
+  BookOpenCheck,
+  Sparkle
 } from "lucide-react";
 
 export default function Home() {
@@ -61,6 +62,48 @@ export default function Home() {
     { id: "yt-2", title: "004 MARATONA DE BATALHA ESPIRITUAL - QUEM É SATANÁS?", url: "https://www.youtube.com/embed/-Yzo-URHR0Y", duration: "1h 05 min" },
     { id: "yt-3", title: "003 MARATONA DE BATALHA ESPIRITUAL - BATALHA ESPIRITUAL É PARA HOJE", url: "https://www.youtube.com/embed/VwjUw-6OI40", duration: "58 min" }
   ];
+
+  // Helper function to render a premium cover mockup dynamically
+  const renderProductCover = (product: ProductItem) => {
+    if (product.image_url) {
+      return (
+        <img 
+          src={product.image_url} 
+          alt={product.title} 
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+        />
+      );
+    }
+
+    // High-end CSS mockup cover
+    const isVip = product.type === "package";
+    return (
+      <div className={`w-full h-full bg-gradient-to-br ${isVip ? "from-amber-950 via-slate-900 to-amber-950" : "from-slate-900 via-slate-950 to-slate-900"} p-5 flex flex-col justify-between relative`}>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(245,158,11,0.08),transparent)] pointer-events-none" />
+        
+        <div className="flex justify-between items-center z-10">
+          <span className={`text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded border ${
+            isVip ? "bg-amber-500/10 text-amber-500 border-amber-500/20" : "bg-slate-800 text-slate-400 border-slate-700"
+          }`}>
+            {isVip ? "Acesso VIP" : "Treinamento"}
+          </span>
+          <Sparkle className={`w-4 h-4 ${isVip ? "text-amber-500" : "text-slate-650"}`} />
+        </div>
+
+        <div className="space-y-2 text-left z-10">
+          <h4 className="text-sm font-black text-white font-serif leading-snug uppercase tracking-wide group-hover:text-amber-500 transition-colors">
+            {product.title}
+          </h4>
+          <div className="flex items-center gap-1.5 text-[8px] text-slate-500 font-black uppercase tracking-widest">
+            <BookOpen className="w-3.5 h-3.5 text-amber-500/80" />
+            <span>{product.lessons} Aulas Cadastradas</span>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   const handleWhatsappCta = (plan: "Standard" | "Premium") => {
     const formattedPhone = settings.whatsapp_number.replace(/[^0-9]/g, "");
@@ -262,35 +305,14 @@ export default function Home() {
             style={{ scrollbarWidth: "none" }}
           >
             {products.slice(0, 6).map((product, idx) => {
-              const gradients = [
-                "from-slate-900 via-blue-950 to-slate-950",
-                "from-slate-900 via-indigo-955 to-slate-950",
-                "from-slate-900 via-purple-950 to-slate-950",
-                "from-slate-900 via-emerald-955 to-slate-950",
-                "from-slate-900 via-cyan-950 to-slate-950",
-                "from-slate-900 via-amber-955 to-slate-950"
-              ];
-              const gradient = gradients[idx % gradients.length];
-              
               return (
                 <div
                   key={product.id}
-                  className="snap-start w-[280px] bg-slate-50 border border-slate-200/50 rounded-3xl p-5 flex flex-col justify-between flex-shrink-0 text-left hover:border-slate-350 transition-all shadow-sm"
+                  className="snap-start w-[280px] bg-slate-50 border border-slate-200/50 rounded-3xl p-5 flex flex-col justify-between flex-shrink-0 text-left hover:border-slate-350 transition-all shadow-sm group"
                 >
                   {/* Premium Mockup Course Cover */}
                   <div className="w-full aspect-square rounded-2xl overflow-hidden relative shadow-lg border border-slate-200 bg-slate-950">
-                    <div className={`w-full h-full bg-gradient-to-br ${gradient} p-4 flex flex-col justify-between`}>
-                      <div className="flex justify-between items-start">
-                        <span className="text-[9px] font-black text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-md uppercase tracking-wider">
-                          {product.type === "package" ? "Formação" : "Curso"}
-                        </span>
-                        <BookOpenCheck className="w-4.5 h-4.5 text-slate-300" />
-                      </div>
-                      <div className="space-y-1 text-left">
-                        <h4 className="text-xs font-black text-white leading-tight uppercase tracking-tight font-serif">{product.title}</h4>
-                        <p className="text-[7px] text-slate-400 uppercase font-black tracking-widest">{product.lessons} Aulas</p>
-                      </div>
-                    </div>
+                    {renderProductCover(product)}
                   </div>
 
                   <div className="mt-4 space-y-4 flex-1 flex flex-col justify-between">
