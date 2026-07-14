@@ -23,12 +23,15 @@ import {
   Search,
   ChevronLeft,
   ChevronRight,
-  Filter
+  Filter,
+  X,
+  BookOpenCheck
 } from "lucide-react";
 
 export default function CursosOnlinePage() {
   const { products, settings } = useDB();
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
 
   // Search, Filter, and Pagination states
   const [searchQuery, setSearchQuery] = useState("");
@@ -277,15 +280,22 @@ export default function CursosOnlinePage() {
                     </div>
                   </div>
 
-                  <a 
-                    href={product.checkout_url}
-                    target={product.checkout_url.startsWith("http") ? "_blank" : undefined}
-                    rel={product.checkout_url.startsWith("http") ? "noreferrer" : undefined}
-                    className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-black uppercase tracking-wider text-center flex items-center justify-center gap-1.5 cursor-pointer transition-colors border-0"
-                  >
-                    <span>Comprar Agora</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </a>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => setSelectedCourse(product)}
+                      className="py-3 border border-slate-200 hover:bg-slate-100 text-slate-700 rounded-xl text-[10px] font-black uppercase tracking-wider text-center cursor-pointer"
+                    >
+                      Detalhes
+                    </button>
+                    <a 
+                      href={product.checkout_url}
+                      target={product.checkout_url.startsWith("http") ? "_blank" : undefined}
+                      rel={product.checkout_url.startsWith("http") ? "noreferrer" : undefined}
+                      className="py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-[10px] font-black uppercase tracking-wider text-center flex items-center justify-center cursor-pointer transition-colors border-0"
+                    >
+                      Comprar
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
@@ -459,6 +469,57 @@ export default function CursosOnlinePage() {
           </p>
         </div>
       </section>
+
+      {/* Course details Modal */}
+      {selectedCourse && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
+          <div className="w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-2xl relative space-y-6 text-left">
+            <button
+              onClick={() => setSelectedCourse(null)}
+              className="absolute top-4 right-4 p-1 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-900 border-0 bg-transparent cursor-pointer"
+            >
+              <X className="w-4.5 h-4.5" />
+            </button>
+            <div className="flex gap-4">
+              <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0 shadow-md border border-slate-200 relative bg-slate-950">
+                <div className="w-full h-full bg-gradient-to-br from-slate-900 via-emerald-955 to-slate-950 p-3 flex flex-col justify-between">
+                  <BookOpenCheck className="w-4 h-4 text-slate-300" />
+                  <span className="text-[9px] font-black text-white font-serif uppercase tracking-tight leading-tight">{selectedCourse.title}</span>
+                </div>
+              </div>
+              <div className="space-y-1.5 flex-1 min-w-0">
+                <span className="text-[9px] font-black text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md uppercase tracking-wider">
+                  {selectedCourse.type === "package" ? "Formação" : "Curso"}
+                </span>
+                <h3 className="text-base font-black text-slate-950 leading-snug">{selectedCourse.title}</h3>
+                <span className="font-mono text-sm font-black text-slate-950">
+                  {selectedCourse.price_installments || `R$ ${selectedCourse.price_cash}`}
+                </span>
+              </div>
+            </div>
+            <div className="space-y-2 border-t border-slate-100 pt-4">
+              <h4 className="text-[9px] uppercase tracking-wider text-slate-450 font-black">Descrição do Curso</h4>
+              <p className="text-xs text-slate-650 font-medium leading-relaxed">{selectedCourse.description}</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <button
+                onClick={() => setSelectedCourse(null)}
+                className="py-3 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer"
+              >
+                Voltar
+              </button>
+              <a
+                href={selectedCourse.checkout_url}
+                target="_blank"
+                rel="noreferrer"
+                className="py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-black uppercase tracking-wider text-center cursor-pointer border-0"
+              >
+                Matricular
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

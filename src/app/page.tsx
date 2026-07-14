@@ -25,10 +25,11 @@ import {
 } from "lucide-react";
 
 export default function Home() {
-  const { events, settings, books } = useDB();
+  const { events, settings, books, products } = useDB();
   const [videoOpen, setVideoOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState<any>(null);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
 
   // Static course definitions (ECOP -> Suneduzz)
   const courses = [
@@ -41,16 +42,6 @@ export default function Home() {
       checkout_url: "https://api.whatsapp.com/send/?phone=5521981116787&text=Ol%C3%A1%21+Gostaria+de+obter+mais+informa%C3%A7%C3%B5es+sobre+a+Mentoria+e+Paternidade+Espiritual.&type=phone_number&app_absent=0",
       details_url: "",
       is_popular: true
-    },
-    {
-      id: "crs-2",
-      title: "Cursos Online - Universidade Profética Internacional",
-      tagline: "Formação teológica avançada para líderes e ministros apostólicos.",
-      price: "",
-      description: "Aprofunde-se na história bíblica, escatologia, governo da igreja e fluxo profético avançado. Ideal para quem busca mentoria de alto nível e liderança.",
-      checkout_url: "/cursos-online",
-      details_url: "/cursos-online",
-      is_popular: false
     },
     {
       id: "crs-3",
@@ -88,6 +79,19 @@ export default function Home() {
     if (carouselRef.current) {
       const scrollAmount = 320;
       carouselRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth"
+      });
+    }
+  };
+
+  // Carousel scroll handler for courses
+  const coursesCarouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollCoursesCarousel = (direction: "left" | "right") => {
+    if (coursesCarouselRef.current) {
+      const scrollAmount = 320;
+      coursesCarouselRef.current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth"
       });
@@ -223,189 +227,119 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Nova Seção: Experiências do Ministério (Caravana Israel) */}
-      <section className="relative py-24 bg-slate-950 text-white overflow-hidden">
-        {/* Large Jerusalem background with dark overlay */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-25"
-          style={{ backgroundImage: "url('/jerusalem-modern.png')" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950 z-0" />
-
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
-            <div className="lg:col-span-7 space-y-6 text-left">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-500 rounded-full text-[10px] font-bold uppercase tracking-wider">
-                Experiências do Ministério
-              </span>
-
-              <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight text-white">
-                🇮🇱 Caravana Profética para Israel
-              </h2>
-
-              <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed">
-                Muito mais do que turismo. <br />
-                Uma experiência espiritual conduzida pelo Apóstolo Ricardo Ribeiro nos lugares onde a Bíblia aconteceu. Viaje com acompanhamento completo, ministrações, atos proféticos e uma experiência inesquecível na Terra Santa.
-              </p>
-
-              {/* Grid of benefits */}
-              <div className="grid grid-cols-2 gap-4 text-xs font-bold text-slate-200">
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-amber-500 shrink-0" />
-                  <span>Acompanhamento espiritual</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-amber-500 shrink-0" />
-                  <span>Guia especializado</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-amber-500 shrink-0" />
-                  <span>Hotéis selecionados</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-amber-500 shrink-0" />
-                  <span>Ônibus executivo</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-amber-500 shrink-0" />
-                  <span>Café da manhã e jantar</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-amber-500 shrink-0" />
-                  <span>Atos Proféticos</span>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-4 pt-4">
-                <Link
-                  href="/caravana-israel"
-                  className="px-5 py-3.5 bg-brand-gradient text-white font-black rounded-xl text-xs uppercase tracking-wider transition-colors border-0"
-                >
-                  Conhecer a Caravana
-                </Link>
-                <button
-                  onClick={handleCaravanaWhatsapp}
-                  className="px-5 py-3.5 bg-transparent hover:bg-white/10 text-white rounded-xl text-xs font-black uppercase tracking-wider border border-white/20 flex items-center gap-1.5 cursor-pointer transition-colors"
-                >
-                  <MessageSquare className="w-4 h-4 fill-white stroke-none" />
-                  <span>Falar no WhatsApp</span>
-                </button>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5 hidden lg:block">
-              {/* Elegant floating visual element */}
-              <div className="w-full aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative">
-                <Image
-                  src="/jerusalem-modern.png"
-                  alt="Jerusalém"
-                  fill
-                  loading="lazy"
-                  decoding="async"
-                  sizes="(max-width: 1024px) 0px, 40vw"
-                  style={{ objectFit: "cover" }}
-                  className="grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-                <span className="absolute bottom-4 left-6 text-[10px] font-black tracking-widest uppercase text-amber-500">Jerusalém Moderna</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Cursos ECOP Section */}
-      <section id="cursos" className="py-24 bg-slate-50 border-b border-slate-100">
+      {/* 3. Nova Seção: Vitrine de Cursos Online (Slider/Carousel) */}
+      <section id="vitrine-cursos" className="py-24 bg-white border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
 
-          <div className="space-y-3">
-            <span className="text-xs font-black uppercase text-amber-600 tracking-wider">ECOP Treinamentos</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight leading-none">Cursos e Ativações de Destino</h2>
-            <p className="text-xs text-slate-500 font-bold max-w-md mx-auto">Capacitações hospedadas e validadas pela plataforma Suneduzz para garantir sua total segurança.</p>
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="text-left space-y-2">
+              <span className="text-xs font-black uppercase text-amber-600 tracking-wider block">Capacitação Teológica</span>
+              <h2 className="text-3xl font-extrabold text-slate-950 tracking-tight">Cursos Online</h2>
+              <p className="text-xs text-slate-500 font-bold">Estude e ative o seu chamado com a Universidade Profética Internacional.</p>
+            </div>
+
+            {/* Carousel navigation buttons */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => scrollCoursesCarousel("left")}
+                className="p-2.5 border border-slate-200 hover:bg-slate-50 rounded-xl cursor-pointer"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => scrollCoursesCarousel("right")}
+                className="p-2.5 border border-slate-200 hover:bg-slate-50 rounded-xl cursor-pointer"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {courses.map((course) => (
-              <div
-                key={course.id}
-                className={`bg-white border rounded-3xl p-6 shadow-premium flex flex-col justify-between text-left transition-all hover:scale-[1.01] hover:-translate-y-1 ${course.is_popular ? "border-amber-500/80 shadow-amber-500/5 relative" : "border-slate-100"
-                  }`}
-              >
-                {course.is_popular && (
-                  <span className="absolute -top-3.5 left-6 px-3 py-1 bg-amber-500 text-slate-950 font-black uppercase tracking-wider text-[9px] rounded-full">
-                    Mais Procurado
-                  </span>
-                )}
-
-                <div className="space-y-4">
-                  <div className="space-y-1.5">
-                    <h3 className="text-base sm:text-lg font-black text-slate-900 leading-snug">{course.title}</h3>
-                    <p className="text-xs text-slate-400 font-bold leading-normal">{course.tagline}</p>
-                  </div>
-                  <p className="text-xs text-slate-500 leading-relaxed font-medium">{course.description}</p>
-                  {course.id === "crs-2" && (
-                    <ul className="space-y-2 pt-3 text-[11px] text-slate-650 font-bold border-t border-slate-100/60 mt-3">
-                      <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-500 shrink-0" />
-                        <span>Cursos Essenciais Individuais</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-500 shrink-0" />
-                        <span>Cursos Avançados</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-500 shrink-0" />
-                        <span>Pacote VIP</span>
-                      </li>
-                    </ul>
-                  )}
-                </div>
-
-                <div className="pt-6 border-t border-slate-100 mt-6 space-y-4">
-                  {course.price && (
-                    <div className="flex justify-between items-end">
-                      <span className="text-[10px] text-slate-450 uppercase font-black">Investimento</span>
-                      <span className="text-sm font-black text-slate-950 font-mono">{course.price}</span>
+          {/* Carousel Slider */}
+          <div
+            ref={coursesCarouselRef}
+            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pr-4"
+            style={{ scrollbarWidth: "none" }}
+          >
+            {products.slice(0, 6).map((product, idx) => {
+              const gradients = [
+                "from-slate-900 via-blue-950 to-slate-950",
+                "from-slate-900 via-indigo-955 to-slate-950",
+                "from-slate-900 via-purple-950 to-slate-950",
+                "from-slate-900 via-emerald-955 to-slate-950",
+                "from-slate-900 via-cyan-950 to-slate-950",
+                "from-slate-900 via-amber-955 to-slate-950"
+              ];
+              const gradient = gradients[idx % gradients.length];
+              
+              return (
+                <div
+                  key={product.id}
+                  className="snap-start w-[280px] bg-slate-50 border border-slate-200/50 rounded-3xl p-5 flex flex-col justify-between flex-shrink-0 text-left hover:border-slate-350 transition-all shadow-sm"
+                >
+                  {/* Premium Mockup Course Cover */}
+                  <div className="w-full aspect-square rounded-2xl overflow-hidden relative shadow-lg border border-slate-200 bg-slate-950">
+                    <div className={`w-full h-full bg-gradient-to-br ${gradient} p-4 flex flex-col justify-between`}>
+                      <div className="flex justify-between items-start">
+                        <span className="text-[9px] font-black text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-md uppercase tracking-wider">
+                          {product.type === "package" ? "Formação" : "Curso"}
+                        </span>
+                        <BookOpenCheck className="w-4.5 h-4.5 text-slate-300" />
+                      </div>
+                      <div className="space-y-1 text-left">
+                        <h4 className="text-xs font-black text-white leading-tight uppercase tracking-tight font-serif">{product.title}</h4>
+                        <p className="text-[7px] text-slate-400 uppercase font-black tracking-widest">{product.lessons} Aulas</p>
+                      </div>
                     </div>
-                  )}
+                  </div>
 
-                  <div className="flex flex-col gap-2">
-                    {course.id !== "crs-2" && course.id !== "crs-1" && (
+                  <div className="mt-4 space-y-4 flex-1 flex flex-col justify-between">
+                    <div className="space-y-1">
+                      <p className="text-[10px] text-slate-500 line-clamp-2 leading-relaxed min-h-[32px]">{product.description}</p>
+                      <div className="flex justify-between items-center text-xs pt-1">
+                        <span className="text-[9px] text-slate-450 uppercase font-bold">Investimento</span>
+                        <span className="font-mono text-slate-950 font-black">
+                          {product.price_installments || `R$ ${product.price_cash}`}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
+                      <button
+                        onClick={() => setSelectedCourse(product)}
+                        className="py-2.5 border border-slate-200 hover:bg-slate-100 text-slate-700 rounded-xl text-[10px] font-black uppercase tracking-wider text-center cursor-pointer"
+                      >
+                        Detalhes
+                      </button>
                       <a
-                        href={course.details_url}
+                        href={product.checkout_url}
                         target="_blank"
                         rel="noreferrer"
-                        className="w-full py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider text-slate-700 hover:text-slate-900 border border-slate-200/80 hover:border-slate-350 bg-slate-50 hover:bg-slate-100 transition-all text-center flex items-center justify-center gap-1 cursor-pointer"
+                        className="py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-[10px] font-black uppercase tracking-wider text-center cursor-pointer border-0"
                       >
-                        <span>Saiba Mais</span>
-                        <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
+                        Matricular
                       </a>
-                    )}
-
-                    <a
-                      href={course.checkout_url}
-                      target={course.checkout_url.startsWith("http") ? "_blank" : undefined}
-                      rel={course.checkout_url.startsWith("http") ? "noreferrer" : undefined}
-                      className={`w-full py-3 rounded-xl text-xs font-black uppercase tracking-wider text-center flex items-center justify-center gap-1.5 transition-colors border-0 cursor-pointer ${course.is_popular
-                        ? "bg-brand-gradient text-white"
-                        : "bg-slate-900 hover:bg-slate-800 text-white shadow-sm"
-                        }`}
-                    >
-                      <span>{course.id === "crs-2" ? "Ver Cursos Disponíveis" : course.id === "crs-1" ? "Saiba Mais" : "Matricular-se"}</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
+          </div>
+
+          <div className="pt-4">
+            <Link
+              href="/cursos-online"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-black text-xs rounded-xl uppercase tracking-wider cursor-pointer shadow-md hover:scale-[1.02] active:scale-98 transition-all border-0"
+            >
+              <span>Ver todos os Cursos</span>
+              <ArrowRight className="w-4 h-4 text-amber-500 animate-pulse" />
+            </Link>
           </div>
 
         </div>
       </section>
 
-      {/* 5. Nova Seção: E-books (Slider/Carousel) */}
+      {/* 4. Nova Seção: E-books (Slider/Carousel) */}
       <section id="ebooks" className="py-24 bg-white border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
 
@@ -504,6 +438,172 @@ export default function Home() {
             </Link>
           </div>
 
+        </div>
+      </section>
+
+      {/* 5. Cursos ECOP Section */}
+      <section id="cursos" className="py-24 bg-slate-50 border-b border-slate-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
+
+          <div className="space-y-3">
+            <span className="text-xs font-black uppercase text-amber-600 tracking-wider">ECOP Treinamentos</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight leading-none">Cursos e Ativações de Destino</h2>
+            <p className="text-xs text-slate-500 font-bold max-w-md mx-auto">Capacitações hospedadas e validadas pela plataforma Suneduzz para garantir sua total segurança.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {courses.map((course) => (
+              <div
+                key={course.id}
+                className={`bg-white border rounded-3xl p-6 shadow-premium flex flex-col justify-between text-left transition-all hover:scale-[1.01] hover:-translate-y-1 ${course.is_popular ? "border-amber-500/80 shadow-amber-500/5 relative" : "border-slate-100"
+                  }`}
+              >
+                {course.is_popular && (
+                  <span className="absolute -top-3.5 left-6 px-3 py-1 bg-amber-500 text-slate-950 font-black uppercase tracking-wider text-[9px] rounded-full">
+                    Mais Procurado
+                  </span>
+                )}
+
+                <div className="space-y-4">
+                  <div className="space-y-1.5">
+                    <h3 className="text-base sm:text-lg font-black text-slate-900 leading-snug">{course.title}</h3>
+                    <p className="text-xs text-slate-400 font-bold leading-normal">{course.tagline}</p>
+                  </div>
+                  <p className="text-xs text-slate-500 leading-relaxed font-medium">{course.description}</p>
+                </div>
+
+                <div className="pt-6 border-t border-slate-100 mt-6 space-y-4">
+                  {course.price && (
+                    <div className="flex justify-between items-end">
+                      <span className="text-[10px] text-slate-450 uppercase font-black">Investimento</span>
+                      <span className="text-sm font-black text-slate-950 font-mono">{course.price}</span>
+                    </div>
+                  )}
+
+                  <div className="flex flex-col gap-2">
+                    {course.id !== "crs-1" && (
+                      <a
+                        href={course.details_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-full py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider text-slate-700 hover:text-slate-900 border border-slate-200/80 hover:border-slate-350 bg-slate-50 hover:bg-slate-100 transition-all text-center flex items-center justify-center gap-1 cursor-pointer"
+                      >
+                        <span>Saiba Mais</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
+                      </a>
+                    )}
+
+                    <a
+                      href={course.checkout_url}
+                      target={course.checkout_url.startsWith("http") ? "_blank" : undefined}
+                      rel={course.checkout_url.startsWith("http") ? "noreferrer" : undefined}
+                      className={`w-full py-3 rounded-xl text-xs font-black uppercase tracking-wider text-center flex items-center justify-center gap-1.5 transition-colors border-0 cursor-pointer ${course.is_popular
+                        ? "bg-brand-gradient text-white"
+                        : "bg-slate-900 hover:bg-slate-800 text-white shadow-sm"
+                        }`}
+                    >
+                      <span>{course.id === "crs-1" ? "Saiba Mais" : "Matricular-se"}</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* 6. Nova Seção: Experiências do Ministério (Caravana Israel) */}
+      <section className="relative py-24 bg-slate-950 text-white overflow-hidden">
+        {/* Large Jerusalem background with dark overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-25"
+          style={{ backgroundImage: "url('/jerusalem-modern.png')" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950 z-0" />
+
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+            <div className="lg:col-span-7 space-y-6 text-left">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-500 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                Experiências do Ministério
+              </span>
+
+              <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight text-white">
+                🇮🇱 Caravana Profética para Israel
+              </h2>
+
+              <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed">
+                Muito mais do que turismo. <br />
+                Uma experiência espiritual conduzida pelo Apóstolo Ricardo Ribeiro nos lugares onde a Bíblia aconteceu. Viaje com acompanhamento completo, ministrações, atos proféticos e uma experiência inesquecível na Terra Santa.
+              </p>
+
+              {/* Grid of benefits */}
+              <div className="grid grid-cols-2 gap-4 text-xs font-bold text-slate-200">
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-amber-500 shrink-0" />
+                  <span>Acompanhamento espiritual</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-amber-500 shrink-0" />
+                  <span>Guia especializado</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-amber-500 shrink-0" />
+                  <span>Hotéis selecionados</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-amber-500 shrink-0" />
+                  <span>Ônibus executivo</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-amber-500 shrink-0" />
+                  <span>Café da manhã e jantar</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-amber-500 shrink-0" />
+                  <span>Atos Proféticos</span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-4 pt-4">
+                <Link
+                  href="/caravana-israel"
+                  className="px-5 py-3.5 bg-brand-gradient text-white font-black rounded-xl text-xs uppercase tracking-wider transition-colors border-0"
+                >
+                  Conhecer a Caravana
+                </Link>
+                <button
+                  onClick={handleCaravanaWhatsapp}
+                  className="px-5 py-3.5 bg-transparent hover:bg-white/10 text-white rounded-xl text-xs font-black uppercase tracking-wider border border-white/20 flex items-center gap-1.5 cursor-pointer transition-colors"
+                >
+                  <MessageSquare className="w-4 h-4 fill-white stroke-none" />
+                  <span>Falar no WhatsApp</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 hidden lg:block">
+              {/* Elegant floating visual element */}
+              <div className="w-full aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative">
+                <Image
+                  src="/jerusalem-modern.png"
+                  alt="Jerusalém"
+                  fill
+                  loading="lazy"
+                  decoding="async"
+                  sizes="(max-width: 1024px) 0px, 40vw"
+                  style={{ objectFit: "cover" }}
+                  className="grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                <span className="absolute bottom-4 left-6 text-[10px] font-black tracking-widest uppercase text-amber-500">Jerusalém Moderna</span>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -927,6 +1027,57 @@ export default function Home() {
                 className="py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-black uppercase tracking-wider text-center cursor-pointer border-0"
               >
                 Comprar Agora
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Course details Modal */}
+      {selectedCourse && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
+          <div className="w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-2xl relative space-y-6 text-left">
+            <button
+              onClick={() => setSelectedCourse(null)}
+              className="absolute top-4 right-4 p-1 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-900 border-0 bg-transparent cursor-pointer"
+            >
+              <X className="w-4.5 h-4.5" />
+            </button>
+            <div className="flex gap-4">
+              <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0 shadow-md border border-slate-200 relative bg-slate-950">
+                <div className="w-full h-full bg-gradient-to-br from-slate-900 via-emerald-955 to-slate-950 p-3 flex flex-col justify-between">
+                  <BookOpenCheck className="w-4 h-4 text-slate-300" />
+                  <span className="text-[9px] font-black text-white font-serif uppercase tracking-tight leading-tight">{selectedCourse.title}</span>
+                </div>
+              </div>
+              <div className="space-y-1.5 flex-1 min-w-0">
+                <span className="text-[9px] font-black text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md uppercase tracking-wider">
+                  {selectedCourse.type === "package" ? "Formação" : "Curso"}
+                </span>
+                <h3 className="text-base font-black text-slate-950 leading-snug">{selectedCourse.title}</h3>
+                <span className="font-mono text-sm font-black text-slate-950">
+                  {selectedCourse.price_installments || `R$ ${selectedCourse.price_cash}`}
+                </span>
+              </div>
+            </div>
+            <div className="space-y-2 border-t border-slate-100 pt-4">
+              <h4 className="text-[9px] uppercase tracking-wider text-slate-450 font-black">Descrição do Curso</h4>
+              <p className="text-xs text-slate-650 font-medium leading-relaxed">{selectedCourse.description}</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <button
+                onClick={() => setSelectedCourse(null)}
+                className="py-3 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer"
+              >
+                Voltar
+              </button>
+              <a
+                href={selectedCourse.checkout_url}
+                target="_blank"
+                rel="noreferrer"
+                className="py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-black uppercase tracking-wider text-center cursor-pointer border-0"
+              >
+                Matricular
               </a>
             </div>
           </div>
