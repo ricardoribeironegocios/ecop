@@ -103,9 +103,9 @@ export default function CaravanaIsraelPage() {
         />
 
         {/* Seamless blur transition overlay between the two mobile images */}
-        <div className="absolute inset-x-0 bottom-[350px] h-16 backdrop-blur-md bg-black/10 block md:hidden z-5 pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-[370px] h-16 backdrop-blur-md bg-black/10 block md:hidden z-5 pointer-events-none" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6 z-10 w-full flex justify-center lg:justify-start">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-[420px] md:pb-6 z-10 w-full flex justify-center lg:justify-start">
           {/* Glassmorphism Frame Box */}
           <div className="bg-transparent border-0 backdrop-blur-md rounded-3xl p-8 sm:p-10 max-w-xl w-full text-left space-y-6 shadow-2xl bg-white/30">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-700 rounded-full text-[10px] font-bold uppercase tracking-wider">

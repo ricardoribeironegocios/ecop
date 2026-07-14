@@ -304,7 +304,7 @@ export default function Home() {
             className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pr-4"
             style={{ scrollbarWidth: "none" }}
           >
-            {products.slice(0, 6).map((product, idx) => {
+            {products.map((product, idx) => {
               return (
                 <div
                   key={product.id}
@@ -395,7 +395,7 @@ export default function Home() {
             className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pr-4"
             style={{ scrollbarWidth: "none" }}
           >
-            {books.slice(0, 4).map((book) => (
+            {books.map((book) => (
               <div
                 key={book.id}
                 className="snap-start w-[280px] bg-slate-50 border border-slate-200/50 rounded-3xl p-5 flex flex-col justify-between flex-shrink-0 text-left hover:border-slate-350 transition-colors shadow-sm"
