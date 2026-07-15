@@ -496,36 +496,43 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
     });
   };
 
-  const createEvent = (evtData: Omit<EventItem, "id">) => {
+  const createEvent = async (evtData: Omit<EventItem, "id">) => {
     const id = "evt-" + Math.random().toString(36).substring(2, 9);
     const newEvent: EventItem = { ...evtData, id };
+
+    const { error } = await supabase.from("mr_events").insert([newEvent]);
+    if (error) {
+      console.error("Error creating event in Supabase:", error);
+      alert("Erro ao criar evento no banco de dados. Tente novamente.");
+      return;
+    }
+
     const updated = [...events, newEvent];
     saveEvents(updated);
-
-    // Supabase background sync
-    supabase.from("mr_events").insert([newEvent]).then(({ error }) => {
-      if (error) console.error("Error syncing createEvent to Supabase:", error);
-    });
   };
 
-  const updateEvent = (id: string, updates: Partial<EventItem>) => {
+  const updateEvent = async (id: string, updates: Partial<EventItem>) => {
+    const { error } = await supabase.from("mr_events").update(updates).eq("id", id);
+    if (error) {
+      console.error("Error updating event in Supabase:", error);
+      alert("Erro ao atualizar evento no banco de dados. Tente novamente.");
+      return;
+    }
+
     const updated = events.map((e) => (e.id === id ? { ...e, ...updates } : e));
     saveEvents(updated);
-
-    // Supabase background sync
-    supabase.from("mr_events").update(updates).eq("id", id).then(({ error }) => {
-      if (error) console.error("Error syncing updateEvent to Supabase:", error);
-    });
   };
 
-  const deleteEvent = (id: string) => {
+  const deleteEvent = async (id: string) => {
+    const { error } = await supabase.from("mr_events").delete().eq("id", id);
+    if (error) {
+      console.error("Error deleting event from Supabase:", error);
+      alert("Erro ao excluir evento do banco de dados. Tente novamente.");
+      return;
+    }
+
     const updated = events.filter((e) => e.id !== id);
     saveEvents(updated);
-
-    // Supabase background sync
-    supabase.from("mr_events").delete().eq("id", id).then(({ error }) => {
-      if (error) console.error("Error syncing deleteEvent to Supabase:", error);
-    });
   };
 
   const updateSettings = (updates: Partial<GlobalSettings>) => {
@@ -549,36 +556,43 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
     localStorage.setItem("mr_books", JSON.stringify(cleaned));
   };
 
-  const updateBook = (id: string, updates: Partial<BookItem>) => {
+  const updateBook = async (id: string, updates: Partial<BookItem>) => {
+    const { error } = await supabase.from("mr_books").update(updates).eq("id", id);
+    if (error) {
+      console.error("Error updating book in Supabase:", error);
+      alert("Erro ao atualizar livro no banco de dados. Tente novamente.");
+      return;
+    }
+
     const updated = books.map((b) => (b.id === id ? { ...b, ...updates } : b));
     saveBooks(updated);
-
-    // Supabase background sync
-    supabase.from("mr_books").update(updates).eq("id", id).then(({ error }) => {
-      if (error) console.error("Error syncing updateBook to Supabase:", error);
-    });
   };
 
-  const createBook = (bookData: Omit<BookItem, "id">) => {
+  const createBook = async (bookData: Omit<BookItem, "id">) => {
     const id = "bk-" + Math.random().toString(36).substring(2, 9);
     const newBook: BookItem = { ...bookData, id };
+
+    const { error } = await supabase.from("mr_books").insert([newBook]);
+    if (error) {
+      console.error("Error creating book in Supabase:", error);
+      alert("Erro ao criar livro no banco de dados. Tente novamente.");
+      return;
+    }
+
     const updated = [...books, newBook];
     saveBooks(updated);
-
-    // Supabase background sync
-    supabase.from("mr_books").insert([newBook]).then(({ error }) => {
-      if (error) console.error("Error syncing createBook to Supabase:", error);
-    });
   };
 
-  const deleteBook = (id: string) => {
+  const deleteBook = async (id: string) => {
+    const { error } = await supabase.from("mr_books").delete().eq("id", id);
+    if (error) {
+      console.error("Error deleting book from Supabase:", error);
+      alert("Erro ao excluir livro do banco de dados. Tente novamente.");
+      return;
+    }
+
     const updated = books.filter((b) => b.id !== id);
     saveBooks(updated);
-
-    // Supabase background sync
-    supabase.from("mr_books").delete().eq("id", id).then(({ error }) => {
-      if (error) console.error("Error syncing deleteBook to Supabase:", error);
-    });
   };
 
   const saveProducts = (updated: ProductItem[]) => {
@@ -591,36 +605,46 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
     localStorage.setItem("mr_products", JSON.stringify(cleaned));
   };
 
-  const createProduct = (prodData: Omit<ProductItem, "id">) => {
+  const createProduct = async (prodData: Omit<ProductItem, "id">) => {
     const id = "prod-" + Math.random().toString(36).substring(2, 9);
     const newProduct: ProductItem = { ...prodData, id };
+
+    // Sync to Supabase first, then update local state
+    const { error } = await supabase.from("mr_products").insert([newProduct]);
+    if (error) {
+      console.error("Error creating product in Supabase:", error);
+      alert("Erro ao criar produto no banco de dados. Tente novamente.");
+      return;
+    }
+
     const updated = [...products, newProduct];
     saveProducts(updated);
-
-    // Supabase background sync
-    supabase.from("mr_products").insert([newProduct]).then(({ error }) => {
-      if (error) console.error("Error syncing createProduct to Supabase:", error);
-    });
   };
 
-  const updateProduct = (id: string, updates: Partial<ProductItem>) => {
+  const updateProduct = async (id: string, updates: Partial<ProductItem>) => {
+    // Sync to Supabase first
+    const { error } = await supabase.from("mr_products").update(updates).eq("id", id);
+    if (error) {
+      console.error("Error updating product in Supabase:", error);
+      alert("Erro ao atualizar produto no banco de dados. Tente novamente.");
+      return;
+    }
+
     const updated = products.map((p) => (p.id === id ? { ...p, ...updates } : p));
     saveProducts(updated);
-
-    // Supabase background sync
-    supabase.from("mr_products").update(updates).eq("id", id).then(({ error }) => {
-      if (error) console.error("Error syncing updateProduct to Supabase:", error);
-    });
   };
 
-  const deleteProduct = (id: string) => {
+  const deleteProduct = async (id: string) => {
+    // Delete from Supabase first, only update local state on success
+    const { error } = await supabase.from("mr_products").delete().eq("id", id);
+    if (error) {
+      console.error("Error deleting product from Supabase:", error);
+      alert("Erro ao excluir produto do banco de dados. Tente novamente.");
+      return;
+    }
+
     const updated = products.filter((p) => p.id !== id);
     saveProducts(updated);
-
-    // Supabase background sync
-    supabase.from("mr_products").delete().eq("id", id).then(({ error }) => {
-      if (error) console.error("Error syncing deleteProduct to Supabase:", error);
-    });
   };
 
   return (
