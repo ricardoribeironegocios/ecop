@@ -249,7 +249,8 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
     async function loadSupabaseData() {
       try {
         // Load Settings
-        const { data: setD } = await supabase.from("mr_settings").select("*");
+        const { data: setD, error: setE } = await supabase.from("mr_settings").select("*");
+        if (setE) console.error("Error loading settings from Supabase:", setE);
         if (setD && setD.length > 0) {
           const parsed = setD[0];
           const newSettings = {
@@ -263,7 +264,8 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
         }
 
         // Load Books
-        const { data: bD } = await supabase.from("mr_books").select("*").order("title", { ascending: true });
+        const { data: bD, error: bE } = await supabase.from("mr_books").select("*").order("title", { ascending: true });
+        if (bE) console.error("Error loading books from Supabase:", bE);
         if (bD) {
           if (bD.length > 0) {
             setBooks(bD);
@@ -281,21 +283,24 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
         }
 
         // Load Events
-        const { data: eD } = await supabase.from("mr_events").select("*");
+        const { data: eD, error: eE } = await supabase.from("mr_events").select("*");
+        if (eE) console.error("Error loading events from Supabase:", eE);
         if (eD) {
           setEvents(eD);
           localStorage.setItem("mr_events", JSON.stringify(eD));
         }
 
         // Load Orders
-        const { data: oD } = await supabase.from("mr_orders").select("*");
+        const { data: oD, error: oE } = await supabase.from("mr_orders").select("*");
+        if (oE) console.error("Error loading orders from Supabase:", oE);
         if (oD) {
           setOrders(oD);
           localStorage.setItem("mr_orders", JSON.stringify(oD));
         }
 
         // Load Templates
-        const { data: tD } = await supabase.from("mr_form_templates").select("*");
+        const { data: tD, error: tE } = await supabase.from("mr_form_templates").select("*");
+        if (tE) console.error("Error loading templates from Supabase:", tE);
         if (tD && tD.length > 0) {
           const formatted = tD.map((item: any) => ({
             id: item.id,
@@ -306,8 +311,9 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
         }
 
         // Load Products
-        const { data: pD } = await supabase.from("mr_products").select("*").order("title", { ascending: true });
-        if (pD && pD.length > 0) {
+        const { data: pD, error: pE } = await supabase.from("mr_products").select("*").order("title", { ascending: true });
+        if (pE) console.error("Error loading products from Supabase:", pE);
+        if (pD) {
           setProducts(pD);
           localStorage.setItem("mr_products", JSON.stringify(pD));
         }
