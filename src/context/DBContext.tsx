@@ -269,15 +269,21 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
         if (bD) {
           if (bD.length > 0) {
             setBooks(bD);
-            localStorage.setItem("mr_books", JSON.stringify(bD));
+            try {
+              const cleanedBooks = bD.map((b: any) => ({
+                ...b,
+                cover_url: b.cover_url && b.cover_url.startsWith("data:") ? "" : b.cover_url,
+              }));
+              localStorage.setItem("mr_books", JSON.stringify(cleanedBooks));
+            } catch (e) {
+              console.warn("Could not save books to localStorage", e);
+            }
           } else {
             // Seed Supabase with defaultBooks if database is empty
             const { error: seedErr } = await supabase.from("mr_books").insert(defaultBooks);
             if (!seedErr) {
               setBooks(defaultBooks);
               localStorage.setItem("mr_books", JSON.stringify(defaultBooks));
-            } else {
-              console.error("Failed to seed default books to Supabase:", seedErr);
             }
           }
         }
@@ -287,7 +293,15 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
         if (eE) console.error("Error loading events from Supabase:", eE);
         if (eD) {
           setEvents(eD);
-          localStorage.setItem("mr_events", JSON.stringify(eD));
+          try {
+            const cleanedEvents = eD.map((e: any) => ({
+              ...e,
+              banner_url: e.banner_url && e.banner_url.startsWith("data:") ? "" : e.banner_url,
+            }));
+            localStorage.setItem("mr_events", JSON.stringify(cleanedEvents));
+          } catch (e) {
+             console.warn("Could not save events to localStorage", e);
+          }
         }
 
         // Load Orders
@@ -295,7 +309,7 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
         if (oE) console.error("Error loading orders from Supabase:", oE);
         if (oD) {
           setOrders(oD);
-          localStorage.setItem("mr_orders", JSON.stringify(oD));
+          try { localStorage.setItem("mr_orders", JSON.stringify(oD)); } catch(e){}
         }
 
         // Load Templates
@@ -307,7 +321,7 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
             fields: Array.isArray(item.fields) ? item.fields : JSON.parse(item.fields)
           }));
           setFormTemplates(formatted);
-          localStorage.setItem("mr_templates", JSON.stringify(formatted));
+          try { localStorage.setItem("mr_templates", JSON.stringify(formatted)); } catch(e){}
         }
 
         // Load Products
@@ -315,7 +329,15 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
         if (pE) console.error("Error loading products from Supabase:", pE);
         if (pD) {
           setProducts(pD);
-          localStorage.setItem("mr_products", JSON.stringify(pD));
+          try {
+            const cleanedProducts = pD.map((p: any) => ({
+              ...p,
+              image_url: p.image_url && p.image_url.startsWith("data:") ? "" : p.image_url,
+            }));
+            localStorage.setItem("mr_products", JSON.stringify(cleanedProducts));
+          } catch (e) {
+            console.warn("Could not save products to localStorage", e);
+          }
         }
       } catch (err) {
         console.warn("Supabase fetch failed, falling back to local storage.", err);
