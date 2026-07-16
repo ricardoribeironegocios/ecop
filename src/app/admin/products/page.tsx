@@ -116,8 +116,8 @@ export default function AdminProductsPage() {
         const ctx = canvas.getContext("2d");
         ctx?.drawImage(img, 0, 0, width, height);
 
-        // Convert to JPEG with 75% quality to make it very light
-        const compressedBase64 = canvas.toDataURL("image/jpeg", 0.75);
+        // Convert to WebP with 80% quality for optimal compression and quality
+        const compressedBase64 = canvas.toDataURL("image/webp", 0.8);
         setFormData((prev) => ({ ...prev, image_url: compressedBase64 }));
         setUploading(false);
       };
