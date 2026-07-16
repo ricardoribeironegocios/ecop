@@ -65,6 +65,7 @@ export interface ProductItem {
   price_installments: string;
   type: "individual" | "package";
   description?: string;
+  destaque?: boolean;
 }
 
 interface DBContextType {
@@ -328,12 +329,18 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
         const { data: pD, error: pE } = await supabase.from("mr_products").select("*").order("title", { ascending: true });
         if (pE) console.error("Error loading products from Supabase:", pE);
         if (pD) {
-          setProducts(pD);
           try {
-            const cleanedProducts = pD.map((p: any) => ({
-              ...p,
-              image_url: p.image_url && p.image_url.startsWith("data:") ? "" : p.image_url,
-            }));
+            const cleanedProducts = pD.map((p: any) => {
+              const isDestaque = typeof p.type === 'string' && p.type.endsWith("_destaque");
+              const baseType = isDestaque ? p.type.replace("_destaque", "") : p.type;
+              return {
+                ...p,
+                type: baseType,
+                destaque: isDestaque,
+                image_url: p.image_url && p.image_url.startsWith("data:") ? "" : p.image_url,
+              };
+            });
+            setProducts(cleanedProducts);
             localStorage.setItem("mr_products", JSON.stringify(cleanedProducts));
           } catch (e) {
             console.warn("Could not save products to localStorage", e);
@@ -631,28 +638,69 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
     const id = "prod-" + Math.random().toString(36).substring(2, 9);
     const newProduct: ProductItem = { ...prodData, id };
 
+    // Formata o produto para o banco de dados omitindo a coluna 'destaque' que n\u00E3o existe.
+    // E inclui o '_destaque' no 'type'.
+    const dbProduct: any = { ...newProduct };
+    delete dbProduct.destaque;
+    if (newProduct.destaque) {
+      dbProduct.type = `${dbProduct.type}_destaque`;
+    }
+
     // Sync to Supabase first, then update local state
-    const { error } = await supabase.from("mr_products").insert([newProduct]);
+    const { error } = await supabase.from("mr_products").insert([dbProduct]);
     if (error) {
       console.error("Error creating product in Supabase:", error);
       alert("Erro ao criar produto no banco de dados. Tente novamente.");
       return;
     }
 
-    const updated = [...products, newProduct];
+    let updated = [...products, newProduct];
+    if (newProduct.destaque) {
+      // Exclusivity Rule locally: reset other highlights
+      updated = updated.map(p => p.id === id ? p : { ...p, destaque: false });
+      
+      // Reset other highlights in DB
+      const oldFeatured = products.find(p => p.destaque && p.id !== id);
+      if (oldFeatured) {
+        await supabase.from("mr_products").update({ type: oldFeatured.type }).eq("id", oldFeatured.id);
+      }
+    }
     saveProducts(updated);
   };
 
   const updateProduct = async (id: string, updates: Partial<ProductItem>) => {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+
+    let newDestaque = updates.destaque !== undefined ? updates.destaque : product.destaque;
+    let newType = updates.type !== undefined ? updates.type : product.type;
+
+    const dbUpdates: any = { ...updates };
+    delete dbUpdates.destaque; // Remove this because the DB doesn't have it
+
+    if (updates.type !== undefined || updates.destaque !== undefined) {
+      dbUpdates.type = newDestaque ? `${newType}_destaque` : newType;
+    }
+
     // Sync to Supabase first
-    const { error } = await supabase.from("mr_products").update(updates).eq("id", id);
+    const { error } = await supabase.from("mr_products").update(dbUpdates).eq("id", id);
     if (error) {
       console.error("Error updating product in Supabase:", error);
       alert("Erro ao atualizar produto no banco de dados. Tente novamente.");
       return;
     }
 
-    const updated = products.map((p) => (p.id === id ? { ...p, ...updates } : p));
+    let updated = products.map((p) => (p.id === id ? { ...p, ...updates } : p));
+    if (newDestaque) {
+      // Reset others locally
+      updated = updated.map(p => p.id === id ? p : { ...p, destaque: false });
+      
+      // Reset others in DB
+      const oldFeatured = products.find(p => p.destaque && p.id !== id);
+      if (oldFeatured) {
+        await supabase.from("mr_products").update({ type: oldFeatured.type }).eq("id", oldFeatured.id);
+      }
+    }
     saveProducts(updated);
   };
 

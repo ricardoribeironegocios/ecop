@@ -36,7 +36,8 @@ export default function AdminProductsPage() {
     price_cash: 97,
     price_installments: "12x R$ 10,03",
     type: "individual" as "individual" | "package",
-    description: ""
+    description: "",
+    destaque: false
   });
 
   const [uploading, setUploading] = useState(false);
@@ -63,7 +64,8 @@ export default function AdminProductsPage() {
         price_cash: product.price_cash,
         price_installments: product.price_installments,
         type: product.type,
-        description: product.description || ""
+        description: product.description || "",
+        destaque: product.destaque || false
       });
     } else {
       setSelectedProduct(null);
@@ -75,7 +77,8 @@ export default function AdminProductsPage() {
         price_cash: 97,
         price_installments: "12x R$ 10,03",
         type: "individual",
-        description: ""
+        description: "",
+        destaque: false
       });
     }
     setIsModalOpen(true);
@@ -146,7 +149,8 @@ export default function AdminProductsPage() {
       price_cash: Number(formData.price_cash),
       price_installments: formData.price_installments,
       type: formData.type,
-      description: formData.description
+      description: formData.description,
+      destaque: formData.destaque
     };
 
     if (selectedProduct) {
@@ -208,6 +212,11 @@ export default function AdminProductsPage() {
           >
             {/* Visual Cover Preview */}
             <div className="w-full aspect-square rounded-2xl overflow-hidden relative border border-slate-800 bg-slate-950 flex items-center justify-center">
+              {product.destaque && (
+                <span className="absolute top-3 left-3 text-[8px] font-black uppercase bg-amber-500 text-white px-2 py-0.5 rounded-md border border-amber-400/30 z-10 shadow-sm">
+                  ★ Destaque
+                </span>
+              )}
               {product.image_url ? (
                 <img src={product.image_url} alt={product.title} className="w-full h-full object-cover" />
               ) : (
@@ -440,6 +449,31 @@ export default function AdminProductsPage() {
                   placeholder="Escreva um resumo do que é ensinado neste curso..."
                   className="w-full px-3.5 py-3 bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl focus:outline-none text-xs text-white font-medium resize-none leading-relaxed"
                 />
+              </div>
+
+              {/* Featured Toggle */}
+              <div className="flex items-center justify-between p-3.5 bg-slate-950/40 border border-slate-800 rounded-xl">
+                <div className="space-y-1 text-left">
+                  <label className="text-[10px] uppercase tracking-wider text-slate-350 font-black block">Destacar este curso na Página Inicial</label>
+                  <p className="text-[9px] text-slate-500 font-bold leading-normal">
+                    {formData.destaque 
+                      ? "★ Curso em Destaque Atual - Aparecerá na home page." 
+                      : "Defina este curso como a atração principal."}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setFormData((prev) => ({ ...prev, destaque: !prev.destaque }))}
+                  className={`w-11 h-6 rounded-full p-1 transition-colors duration-200 focus:outline-none relative border-0 cursor-pointer ${
+                    formData.destaque ? "bg-amber-500" : "bg-slate-800"
+                  }`}
+                >
+                  <div
+                    className={`w-4 h-4 rounded-full bg-white shadow-md transform transition-transform duration-200 ${
+                      formData.destaque ? "translate-x-5" : "translate-x-0"
+                    }`}
+                  />
+                </button>
               </div>
 
               {/* Modal Actions */}

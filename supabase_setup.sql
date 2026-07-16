@@ -113,6 +113,7 @@ CREATE TABLE IF NOT EXISTS mr_products (
   price_installments TEXT NOT NULL,
   type TEXT NOT NULL DEFAULT 'individual', -- 'individual' or 'package'
   description TEXT,
+  destaque BOOLEAN DEFAULT false,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
