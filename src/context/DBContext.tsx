@@ -330,18 +330,25 @@ export const DBProvider: React.FC<{ children: React.ReactNode }> = ({ children }
         if (pE) console.error("Error loading products from Supabase:", pE);
         if (pD) {
           try {
-            const cleanedProducts = pD.map((p: any) => {
+            const parsedProducts = pD.map((p: any) => {
               const isDestaque = typeof p.type === 'string' && p.type.endsWith("_destaque");
               const baseType = isDestaque ? p.type.replace("_destaque", "") : p.type;
               return {
                 ...p,
                 type: baseType,
                 destaque: isDestaque,
-                image_url: p.image_url && p.image_url.startsWith("data:") ? "" : p.image_url,
               };
             });
-            setProducts(cleanedProducts);
-            localStorage.setItem("mr_products", JSON.stringify(cleanedProducts));
+            
+            // Set the full data (including Base64 images) to React state
+            setProducts(parsedProducts);
+            
+            // Strip Base64 images only for localStorage to avoid QuotaExceededError
+            const cleanedForLocal = parsedProducts.map((p: any) => ({
+              ...p,
+              image_url: p.image_url && p.image_url.startsWith("data:") ? "" : p.image_url,
+            }));
+            localStorage.setItem("mr_products", JSON.stringify(cleanedForLocal));
           } catch (e) {
             console.warn("Could not save products to localStorage", e);
           }
